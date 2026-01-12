@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   update-lotto:
@@ -35,12 +37,19 @@ jobs:
           git config --global user.name 'LotteryBot'
           git config --global user.email 'bot@noreply.github.com'
           git add data/history.json
-          git commit -m "Auto-update lottery results" || exit 0
-          git push
+          # Only commit if there are changes
+          if [[ `git status --porcelain` ]]; then
+            git commit -m "Auto-update lottery results"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './public'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          force_orphan: true
+        id: deployment
+        uses: actions/deploy-pages@v4
