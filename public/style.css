@@ -13,7 +13,47 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+/* Live Jackpot Banner */
+.jackpot-banner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.jackpot-card {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-bottom: 4px solid #f1c40f; /* Gold accent */
+}
+
+.jp-game {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.jp-amount {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #f1c40f;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.jp-label {
+    font-size: 0.7em;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-top: 5px;
 }
 
 /* Stats Cards */

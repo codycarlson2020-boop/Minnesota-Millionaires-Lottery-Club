@@ -27,8 +27,13 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
         });
 
         const parsedResults = [];
+        const currentJackpots = {};
         
         results.forEach(label => {
+            // Extract Jackpot amount if present (e.g. "$124,000,000")
+            const jackpotMatch = label.match(/Estimated jackpot is ([\$,\d]+)/);
+            const jackpotValue = jackpotMatch ? jackpotMatch[1] : 'Unknown';
+
             // Powerball
             if (label.includes('Powerball')) {
                 const match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/);
@@ -37,8 +42,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                         game: 'Powerball',
                         date: match[1],
                         numbers: match[2].trim().split(' ').map(Number),
-                        special: parseInt(match[3])
+                        special: parseInt(match[3]),
+                        jackpot: jackpotValue
                     });
+                    if (!currentJackpots['powerball']) currentJackpots['powerball'] = jackpotValue;
                 }
             }
             // Mega Millions
@@ -49,8 +56,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                         game: 'Mega Millions',
                         date: match[1],
                         numbers: match[2].trim().split(' ').map(Number),
-                        special: parseInt(match[3])
+                        special: parseInt(match[3]),
+                        jackpot: jackpotValue
                     });
+                    if (!currentJackpots['megamillions']) currentJackpots['megamillions'] = jackpotValue;
                 }
             }
             // Lotto America
@@ -61,8 +70,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                         game: 'Lotto America',
                         date: match[1],
                         numbers: match[2].trim().split(' ').map(Number),
-                        special: parseInt(match[3])
+                        special: parseInt(match[3]),
+                        jackpot: jackpotValue
                     });
+                    if (!currentJackpots['lottoamerica']) currentJackpots['lottoamerica'] = jackpotValue;
                 }
             }
             // Gopher 5
@@ -72,8 +83,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                     parsedResults.push({
                         game: 'Gopher 5',
                         date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number)
+                        numbers: match[2].trim().split(' ').map(Number),
+                        jackpot: jackpotValue
                     });
+                    if (!currentJackpots['gopher5']) currentJackpots['gopher5'] = jackpotValue;
                 }
             }
             // North 5
@@ -83,13 +96,19 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                     parsedResults.push({
                         game: 'North 5',
                         date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number)
+                        numbers: match[2].trim().split(' ').map(Number),
+                        jackpot: jackpotValue
                     });
+                    if (!currentJackpots['north5']) currentJackpots['north5'] = jackpotValue;
                 }
             }
         });
 
         console.log(`Scraped ${parsedResults.length} draw results.`);
+
+        // Save Jackpots to a separate file for the dashboard header
+        const JACKPOT_FILE = path.join(__dirname, '../public/data/jackpots.json');
+        fs.writeFileSync(JACKPOT_FILE, JSON.stringify(currentJackpots, null, 2));
 
         // Deduplicate and merge with history
         let history = [];

@@ -2,15 +2,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("Loading dashboard...");
 
     try {
-        const [historyRes, rulesRes, clubRes] = await Promise.all([
+        const [historyRes, rulesRes, clubRes, jackpotRes] = await Promise.all([
             fetch('./data/history.json'),
             fetch('./config/game_rules.json'),
-            fetch('./config/club_numbers.json')
+            fetch('./config/club_numbers.json'),
+            fetch('./data/jackpots.json')
         ]);
 
         const history = await historyRes.json();
         const rules = await rulesRes.json();
         const clubNumbers = await clubRes.json();
+        const jackpots = await jackpotRes.json();
+
+        // ------------------------------------------
+        // RENDER LIVE JACKPOTS
+        // ------------------------------------------
+        const jackpotContainer = document.getElementById('jackpot-container');
+        if (jackpotContainer && jackpots) {
+            jackpotContainer.innerHTML = '';
+            const gamesToShow = ['powerball', 'megamillions', 'lottoamerica'];
+            gamesToShow.forEach(game => {
+                if (jackpots[game]) {
+                    const card = document.createElement('div');
+                    card.className = 'jackpot-card';
+                    card.innerHTML = `
+                        <div class="jp-game">${game === 'lottoamerica' ? 'Lotto America' : game.charAt(0).toUpperCase() + game.slice(1)}</div>
+                        <div class="jp-amount">${jackpots[game]}</div>
+                        <div class="jp-label">Current Jackpot</div>
+                    `;
+                    jackpotContainer.appendChild(card);
+                }
+            });
+        }
+        // ------------------------------------------
 
         // ------------------------------------------
         // SEASON FILTERING LOGIC
