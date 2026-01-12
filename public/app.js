@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const [historyRes, rulesRes] = await Promise.all([
-            fetch('../data/history.json'),
-            fetch('../config/game_rules.json')
+            fetch('./data/history.json'),
+            fetch('./config/game_rules.json')
         ]);
 
         const history = await historyRes.json();

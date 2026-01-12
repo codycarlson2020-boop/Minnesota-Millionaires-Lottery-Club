@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const TARGET_URL = 'https://www.mnlottery.com/winning-numbers';
-const HISTORY_FILE = path.join(__dirname, '../data/history.json');
-const CLUB_NUMBERS_FILE = path.join(__dirname, '../config/club_numbers.json');
+const HISTORY_FILE = path.join(__dirname, '../public/data/history.json');
+const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.json');
 
 (async () => {
     console.log('Starting MN Lottery Scraper...');
