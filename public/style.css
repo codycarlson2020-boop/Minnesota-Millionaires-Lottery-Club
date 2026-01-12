@@ -16,6 +16,7 @@ header {
     margin-bottom: 40px;
 }
 
+/* Stats Cards */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -43,46 +44,148 @@ header {
     font-weight: bold;
     margin: 10px 0 0 0;
     color: #2c3e50;
+    /* Prevent overflow for large numbers */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.section {
+/* Scorecard Design */
+.scorecard {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    border: 1px solid #eef2f7;
+    overflow: hidden;
 }
 
-.draw-row {
+.scorecard-header {
+    background: #f8f9fa;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
     border-bottom: 1px solid #eee;
 }
 
-.draw-row:last-child {
-    border-bottom: none;
-}
-
-.draw-info strong {
-    font-size: 1.1em;
+.scorecard-header h2 {
+    margin: 0;
+    font-size: 1.2em;
     color: #2c3e50;
 }
 
-.numbers {
-    font-family: monospace;
+.draw-date {
+    font-size: 0.85em;
     color: #7f8c8d;
-    margin-top: 5px;
 }
 
-.draw-result {
+.win-badge {
+    background: #27ae60;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
     font-weight: bold;
-    font-size: 1.2em;
-    color: #95a5a6;
+    font-size: 0.9em;
 }
 
-.draw-result.win {
-    color: #27ae60;
+.section-label {
+    font-size: 0.75em;
+    color: #95a5a6;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.winning-section {
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tickets-section {
+    padding: 20px;
+    background: #fdfdfd;
+}
+
+/* Ball Styles */
+.ball-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ball {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #eee;
+    color: #555;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* Winning Numbers (Large) */
+.ball.drawn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2em;
+    background: #fff;
+    border: 2px solid #34495e;
+    color: #34495e;
+}
+
+.ball.drawn.special {
+    border-color: #c0392b;
+    color: #c0392b;
+}
+
+/* Matches (Green Circle) */
+.ball.match {
+    background: #27ae60;
+    color: white;
+    box-shadow: 0 2px 4px rgba(39, 174, 96, 0.4);
+}
+
+.ball.special {
+    border: 2px solid #c0392b; /* Special number styling for tickets */
+    background: transparent;
+    color: #c0392b;
+}
+
+.ball.special.match {
+    background: #c0392b;
+    color: white;
+}
+
+/* Ticket Grid */
+.ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.ticket-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.ticket-label {
+    font-size: 0.8em;
+    color: #aaa;
+    margin-right: 5px;
+    width: 20px;
 }
 
 /* Rules Page Styles */
