@@ -188,6 +188,16 @@ header {
     width: 20px;
 }
 
+.ticket-win {
+    margin-left: auto; /* Push to right */
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 0.95em;
+    background: #eafaf1;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
 /* Rules Page Styles */
 .rules-grid {
     display: grid;

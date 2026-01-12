@@ -66,11 +66,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                         specialSpan = `<span class="ball special ${isSpecialMatch ? 'match' : ''}">${ticket.special}</span>`;
                     }
 
+                    // Check for win amount
+                    let winAmountHTML = '';
+                    if (draw.matches) {
+                        // Compare arrays by joining them to strings
+                        const ticketStr = ticket.numbers.join(',');
+                        const match = draw.matches.find(m => m.pick.join(',') === ticketStr);
+                        if (match && match.won > 0) {
+                            winAmountHTML = `<span class="ticket-win">+$${match.won.toLocaleString()}</span>`;
+                        }
+                    }
+
                     ticketsHTML += `
                         <div class="ticket-row">
                             <span class="ticket-label">#${index + 1}</span>
                             ${numSpans}
                             ${specialSpan}
+                            ${winAmountHTML}
                         </div>
                     `;
                 });
