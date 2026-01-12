@@ -1,0 +1,107 @@
+[
+  {
+    "game": "North 5",
+    "date": "Jan 8th, 2026",
+    "numbers": [
+      4,
+      5,
+      21,
+      28,
+      32
+    ],
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Gopher 5",
+    "date": "Jan 9th, 2026",
+    "numbers": [
+      4,
+      7,
+      15,
+      39,
+      44
+    ],
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 9th, 2026",
+    "numbers": [
+      1,
+      2,
+      6,
+      12,
+      34
+    ],
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Jan 9th, 2026",
+    "numbers": [
+      12,
+      30,
+      36,
+      42,
+      47
+    ],
+    "special": 16,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 10th, 2026",
+    "numbers": [
+      11,
+      24,
+      25,
+      32,
+      33
+    ],
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Powerball",
+    "date": "Jan 10th, 2026",
+    "numbers": [
+      5,
+      19,
+      21,
+      28,
+      64
+    ],
+    "special": 14,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 11th, 2026",
+    "numbers": [
+      4,
+      6,
+      8,
+      9,
+      11
+    ],
+    "won_amount": 25000,
+    "matches": [
+      {
+        "pick": [
+          4,
+          6,
+          8,
+          9,
+          11
+        ],
+        "matches": 5,
+        "won": 25000
+      }
+    ]
+  }
+]

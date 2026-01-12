@@ -1,0 +1,14 @@
+{
+  "powerball": [
+    { "numbers": [5, 12, 33, 45, 55], "special": 12 }
+  ],
+  "megamillions": [
+    { "numbers": [1, 2, 3, 4, 5], "special": 6 }
+  ],
+  "gopher5": [
+    { "numbers": [10, 20, 30, 40, 50] }
+  ],
+  "north5": [
+    { "numbers": [4, 6, 8, 9, 11] }
+  ]
+}

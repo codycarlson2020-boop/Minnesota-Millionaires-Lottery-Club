@@ -1,0 +1,46 @@
+name: Daily Lotto Update
+
+on:
+  schedule:
+    # Run at 05:00 UTC daily (11:00 PM CST)
+    - cron: '0 5 * * *'
+  workflow_dispatch: # Allows manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-lotto:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Scraper
+        run: node scripts/scrape.js
+
+      - name: Run Checker
+        run: node scripts/checker.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'LotteryBot'
+          git config --global user.email 'bot@noreply.github.com'
+          git add data/history.json
+          git commit -m "Auto-update lottery results" || exit 0
+          git push
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          force_orphan: true
