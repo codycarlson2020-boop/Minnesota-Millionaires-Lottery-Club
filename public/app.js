@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             let gameKey = draw.game.toLowerCase().replace(/\s/g, '');
             if (gameKey === 'north5') gameKey = 'north5'; // ensure match
 
+            // SKIP if we don't play this game
+            if (!clubNumbers[gameKey]) return;
+
             if (rules[gameKey]) {
                 const plays = rules[gameKey].plays_per_draw || 1;
                 totalSpent += (rules[gameKey].cost_per_play * plays);

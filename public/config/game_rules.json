@@ -10,19 +10,9 @@
     "plays_per_draw": 5,
     "draw_days": ["Tue", "Fri"]
   },
-  "gopher5": {
-    "cost_per_play": 1.00,
-    "plays_per_draw": 5,
-    "draw_days": ["Mon", "Wed", "Fri"]
-  },
   "lottoamerica": {
     "cost_per_play": 1.00,
     "plays_per_draw": 5,
     "draw_days": ["Mon", "Wed", "Sat"]
-  },
-  "north5": {
-    "cost_per_play": 1.00,
-    "plays_per_draw": 5,
-    "draw_days": ["Daily"]
   }
 }
