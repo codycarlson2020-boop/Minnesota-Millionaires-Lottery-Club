@@ -1,5 +1,19 @@
 [
   {
+    "game": "Lotto America",
+    "date": "Jan 10th, 2026",
+    "numbers": [
+      6,
+      15,
+      20,
+      22,
+      25
+    ],
+    "special": 10,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
     "game": "North 5",
     "date": "Jan 8th, 2026",
     "numbers": [
@@ -22,8 +36,20 @@
       39,
       44
     ],
-    "won_amount": 0,
-    "matches": []
+    "won_amount": 100000,
+    "matches": [
+      {
+        "pick": [
+          4,
+          7,
+          15,
+          39,
+          44
+        ],
+        "matches": 5,
+        "won": 100000
+      }
+    ]
   },
   {
     "game": "North 5",
@@ -49,8 +75,21 @@
       47
     ],
     "special": 16,
-    "won_amount": 0,
-    "matches": []
+    "won_amount": 100000000,
+    "matches": [
+      {
+        "pick": [
+          12,
+          30,
+          36,
+          42,
+          47
+        ],
+        "matches": 5,
+        "special": true,
+        "won": 100000000
+      }
+    ]
   },
   {
     "game": "North 5",
@@ -76,8 +115,21 @@
       64
     ],
     "special": 14,
-    "won_amount": 0,
-    "matches": []
+    "won_amount": 100000000,
+    "matches": [
+      {
+        "pick": [
+          5,
+          19,
+          21,
+          28,
+          64
+        ],
+        "matches": 5,
+        "special": true,
+        "won": 100000000
+      }
+    ]
   },
   {
     "game": "North 5",

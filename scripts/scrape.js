@@ -53,6 +53,18 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                     });
                 }
             }
+            // Lotto America
+            else if (label.includes('Lotto America')) {
+                const match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/);
+                if (match) {
+                    parsedResults.push({
+                        game: 'Lotto America',
+                        date: match[1],
+                        numbers: match[2].trim().split(' ').map(Number),
+                        special: parseInt(match[3])
+                    });
+                }
+            }
             // Gopher 5
             else if (label.includes('Gopher 5')) {
                 const match = label.match(/drawing on (.*?)\. (.*?) Estimated/);

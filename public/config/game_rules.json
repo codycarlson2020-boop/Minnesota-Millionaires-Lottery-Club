@@ -12,7 +12,11 @@
     "cost_per_play": 1.00,
     "draw_days": ["Mon", "Wed", "Fri"]
   },
-  "northstarcash": {
+  "lottoamerica": {
+    "cost_per_play": 1.00,
+    "draw_days": ["Mon", "Wed", "Sat"]
+  },
+  "north5": {
     "cost_per_play": 1.00,
     "draw_days": ["Daily"]
   }

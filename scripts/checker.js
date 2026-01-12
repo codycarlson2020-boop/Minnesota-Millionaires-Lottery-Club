@@ -31,6 +31,18 @@ const PAYOUTS = {
         if (special) return 2;
         return 0;
     },
+    'Lotto America': (matches, special) => {
+        if (matches === 5 && special) return 2000000; // Jackpot (estimate)
+        if (matches === 5) return 20000;
+        if (matches === 4 && special) return 1000;
+        if (matches === 4) return 100;
+        if (matches === 3 && special) return 20;
+        if (matches === 3) return 5;
+        if (matches === 2 && special) return 5;
+        if (matches === 1 && special) return 2;
+        if (special) return 2;
+        return 0;
+    },
     'Gopher 5': (matches) => {
         if (matches === 5) return 100000; // Jackpot (estimate)
         if (matches === 4) return 500;
