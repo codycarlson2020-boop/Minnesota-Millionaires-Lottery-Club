@@ -12,6 +12,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rules = await rulesRes.json();
         const clubNumbers = await clubRes.json();
 
+        // Sort priority: Powerball (1), Mega Millions (2), Lotto America (3)
+        const gamePriority = {
+            'powerball': 1,
+            'mega millions': 2,
+            'lotto america': 3
+        };
+
+        // Sort history by Date (Descending) and then by Game Priority
+        history.sort((a, b) => {
+            // Sort by Date first (Newest first)
+            const dateA = new Date(a.date.replace('th', '').replace('st', '').replace('nd', '').replace('rd', ''));
+            const dateB = new Date(b.date.replace('th', '').replace('st', '').replace('nd', '').replace('rd', ''));
+            
+            if (dateB - dateA !== 0) {
+                return dateB - dateA;
+            }
+
+            // If same date, sort by game priority
+            const pA = gamePriority[a.game.toLowerCase()] || 99;
+            const pB = gamePriority[b.game.toLowerCase()] || 99;
+            return pA - pB;
+        });
+
         let totalWon = 0;
         let totalSpent = 0;
 
