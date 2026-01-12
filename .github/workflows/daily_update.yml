@@ -1,6 +1,8 @@
 name: Daily Lotto Update
 
 on:
+  push:
+    branches: ["main"]
   schedule:
     # Run at 05:00 UTC daily (11:00 PM CST)
     - cron: '0 5 * * *'
