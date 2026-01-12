@@ -2,22 +2,27 @@
   "club_members": 50,
   "powerball": {
     "cost_per_play": 2.00,
+    "plays_per_draw": 5,
     "draw_days": ["Mon", "Wed", "Sat"]
   },
   "megamillions": {
     "cost_per_play": 5.00,
+    "plays_per_draw": 5,
     "draw_days": ["Tue", "Fri"]
   },
   "gopher5": {
     "cost_per_play": 1.00,
+    "plays_per_draw": 5,
     "draw_days": ["Mon", "Wed", "Fri"]
   },
   "lottoamerica": {
     "cost_per_play": 1.00,
+    "plays_per_draw": 5,
     "draw_days": ["Mon", "Wed", "Sat"]
   },
   "north5": {
     "cost_per_play": 1.00,
+    "plays_per_draw": 5,
     "draw_days": ["Daily"]
   }
 }

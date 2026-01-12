@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Calculate Spending
             const gameKey = draw.game.toLowerCase().replace(/\s/g, '');
             if (rules[gameKey]) {
-                totalSpent += rules[gameKey].cost_per_play;
+                const plays = rules[gameKey].plays_per_draw || 1;
+                totalSpent += (rules[gameKey].cost_per_play * plays);
             }
 
             // Render Row
