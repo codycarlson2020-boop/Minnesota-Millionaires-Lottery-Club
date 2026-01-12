@@ -8,7 +8,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../config/club_numbers.json');
 
 (async () => {
     console.log('Starting MN Lottery Scraper...');
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        headless: "new",
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     
     try {
