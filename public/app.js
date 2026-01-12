@@ -12,6 +12,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rules = await rulesRes.json();
         const clubNumbers = await clubRes.json();
 
+        // ------------------------------------------
+        // SEASON FILTERING LOGIC
+        // ------------------------------------------
+        const today = new Date();
+        let currentSeasonStartYear = today.getFullYear();
+        // If we are in Jan or Feb, the season started March 1st of previous year
+        if (today.getMonth() < 2) { 
+            currentSeasonStartYear -= 1;
+        }
+        const currentSeasonStart = new Date(currentSeasonStartYear, 2, 1); // March 1st
+
+        // Helper to parse "Jan 10th, 2026"
+        const parseDate = (dateStr) => {
+            return new Date(dateStr.replace(/(st|nd|rd|th)/, ''));
+        };
+
+        // Filter history to ONLY show current season
+        const currentSeasonHistory = history.filter(draw => {
+            return parseDate(draw.date) >= currentSeasonStart;
+        });
+        // ------------------------------------------
+
         // Sort priority: Powerball (1), Mega Millions (2), Lotto America (3)
         const gamePriority = {
             'powerball': 1,
@@ -20,10 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         // Sort history by Date (Descending) and then by Game Priority
-        history.sort((a, b) => {
+        currentSeasonHistory.sort((a, b) => {
             // Sort by Date first (Newest first)
-            const dateA = new Date(a.date.replace('th', '').replace('st', '').replace('nd', '').replace('rd', ''));
-            const dateB = new Date(b.date.replace('th', '').replace('st', '').replace('nd', '').replace('rd', ''));
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
             
             if (dateB - dateA !== 0) {
                 return dateB - dateA;
@@ -41,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultsList = document.getElementById('results-list');
         resultsList.innerHTML = "";
 
-        history.forEach(draw => {
+        currentSeasonHistory.forEach(draw => {
             // Normalize game key (e.g., "Powerball" -> "powerball")
             let gameKey = draw.game.toLowerCase().replace(/\s/g, '');
             

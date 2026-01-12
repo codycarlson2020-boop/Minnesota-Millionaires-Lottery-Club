@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club History - MN Lotto Club</title>
+    <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Club Archive</h1>
+            <p>Past Season Performance</p>
+            <div style="margin-top: 10px;">
+                <a href="index.html" style="text-decoration: none; color: #3498db; font-size: 0.9em;">← Back to Current Season</a>
+            </div>
+        </header>
+
+        <div class="section">
+            <div class="history-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Season</th>
+                            <th>Spent</th>
+                            <th>Won</th>
+                            <th>Net P/L</th>
+                            <th>Max Win</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-list">
+                        <!-- Javascript will populate this -->
+                        <tr><td colspan="5" style="text-align:center; padding: 20px;">Loading archives...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="history.js"></script>
+</body>
+</html>

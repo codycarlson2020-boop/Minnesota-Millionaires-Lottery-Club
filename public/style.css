@@ -44,7 +44,6 @@ header {
     font-weight: bold;
     margin: 10px 0 0 0;
     color: #2c3e50;
-    /* Prevent overflow for large numbers */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -131,7 +130,6 @@ header {
     font-size: 0.9em;
 }
 
-/* Winning Numbers (Large) */
 .ball.drawn {
     width: 45px;
     height: 45px;
@@ -146,7 +144,6 @@ header {
     color: #c0392b;
 }
 
-/* Matches (Green Circle) */
 .ball.match {
     background: #27ae60;
     color: white;
@@ -154,7 +151,7 @@ header {
 }
 
 .ball.special {
-    border: 2px solid #c0392b; /* Special number styling for tickets */
+    border: 2px solid #c0392b;
     background: transparent;
     color: #c0392b;
 }
@@ -189,7 +186,7 @@ header {
 }
 
 .ticket-win {
-    margin-left: auto; /* Push to right */
+    margin-left: auto;
     color: #27ae60;
     font-weight: bold;
     font-size: 0.95em;
@@ -198,7 +195,40 @@ header {
     border-radius: 4px;
 }
 
-/* Rules Page Styles */
+/* History & Rules Tables */
+.history-container, .rules-grid {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.history-table, table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th, .history-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.history-table th {
+    background-color: #f8f9fa;
+    color: #666;
+    font-weight: 600;
+}
+
+.history-table tr:last-child td {
+    border-bottom: none;
+}
+
+td.win { color: #27ae60; font-weight: bold; }
+td.loss { color: #c0392b; font-weight: bold; }
+
+/* Reused Rule Styles */
 .rules-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -231,32 +261,6 @@ header {
     font-size: 0.85em;
     font-weight: 600;
     margin-bottom: 15px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-th {
-    text-align: left;
-    color: #95a5a6;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #eee;
-}
-
-td {
-    padding: 8px 0;
-    border-bottom: 1px solid #f9f9f9;
-    color: #34495e;
-    font-size: 0.95em;
-}
-
-tr:last-child td {
-    border-bottom: none;
 }
 
 .jackpot td {
