@@ -19,15 +19,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         resultsList.innerHTML = "";
 
         history.forEach(draw => {
-            // 1. Math & Stats
-            totalWon += (draw.won_amount || 0);
-            
             // Normalize game key (e.g., "Powerball" -> "powerball")
             let gameKey = draw.game.toLowerCase().replace(/\s/g, '');
-            if (gameKey === 'north5') gameKey = 'north5'; // ensure match
-
+            
             // SKIP if we don't play this game
             if (!clubNumbers[gameKey]) return;
+
+            // 1. Math & Stats
+            totalWon += (draw.won_amount || 0);
 
             if (rules[gameKey]) {
                 const plays = rules[gameKey].plays_per_draw || 1;
