@@ -23,8 +23,20 @@
       28,
       32
     ],
-    "won_amount": 0,
-    "matches": []
+    "won_amount": 1,
+    "matches": [
+      {
+        "pick": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "matches": 2,
+        "won": 1
+      }
+    ]
   },
   {
     "game": "Gopher 5",
@@ -61,8 +73,20 @@
       12,
       34
     ],
-    "won_amount": 0,
-    "matches": []
+    "won_amount": 1,
+    "matches": [
+      {
+        "pick": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "matches": 2,
+        "won": 1
+      }
+    ]
   },
   {
     "game": "Mega Millions",

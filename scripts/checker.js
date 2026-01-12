@@ -53,7 +53,8 @@ const PAYOUTS = {
     'North 5': (matches) => {
         if (matches === 5) return 25000; // Jackpot (estimate)
         if (matches === 4) return 50;
-        if (matches === 3) return 2;
+        if (matches === 3) return 5;
+        if (matches === 2) return 1;
         return 0;
     }
 };
