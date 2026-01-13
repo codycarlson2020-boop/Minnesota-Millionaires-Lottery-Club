@@ -1,107 +1,139 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const [historyRes, rulesRes] = await Promise.all([
-            fetch('./data/history.json'),
-            fetch('./config/game_rules.json')
-        ]);
-
+        // Switch to mock data for demo purposes, or use real history.json
+        // const historyRes = await fetch('./data/history.json');
+        const historyRes = await fetch('./data/mock_history.json');
         const history = await historyRes.json();
-        const rules = await rulesRes.json();
-        const members = rules.club_members || 50;
 
-        // Helper to parse "Jan 10th, 2026" -> Date Object
-        const parseDate = (dateStr) => {
-            return new Date(dateStr.replace(/(st|nd|rd|th)/, ''));
-        };
+        // Helper to parse dates
+        const parseDate = (dateStr) => new Date(dateStr.replace(/(st|nd|rd|th)/, ''));
 
-        // Determine Current Season Start (March 1st logic)
-        const today = new Date();
-        let currentSeasonStartYear = today.getFullYear();
-        if (today.getMonth() < 2) { // Jan (0) or Feb (1)
-            currentSeasonStartYear -= 1;
-        }
-        const currentSeasonStart = new Date(currentSeasonStartYear, 2, 1); // March 1st
-
-        // Group data by Season
-        // Season 2025 = March 1, 2025 to Feb 28, 2026
+        // 1. Group Data: Season -> Month -> Draws
         const seasons = {};
 
         history.forEach(draw => {
-            const drawDate = parseDate(draw.date);
+            const date = parseDate(draw.date);
             
-            // Calculate Draw Cost
-            let drawCost = 0;
-            const gameKey = draw.game.toLowerCase().replace(/\s/g, '');
-            if (rules[gameKey]) {
-                drawCost = (rules[gameKey].cost_per_play * (rules[gameKey].plays_per_draw || 1));
-            }
+            // Determine Season (March 1st Cycle)
+            let seasonYear = date.getFullYear();
+            if (date.getMonth() < 2) seasonYear -= 1;
+            const seasonKey = `${seasonYear}-${seasonYear + 1}`;
 
-            // Determine which season this draw belongs to
-            let seasonYear = drawDate.getFullYear();
-            if (drawDate.getMonth() < 2) {
-                seasonYear -= 1;
-            }
+            // Determine Month Key (e.g., "January 2026")
+            const monthKey = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            // Sort key for months (YYYY-MM)
+            const monthSortKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
 
-            // Initialize season stats if not exists
-            if (!seasons[seasonYear]) {
-                seasons[seasonYear] = {
-                    year: seasonYear,
-                    spent: 0,
-                    won: 0,
-                    maxWin: 0,
-                    isCurrent: (seasonYear === currentSeasonStartYear)
+            if (!seasons[seasonKey]) seasons[seasonKey] = { totalWon: 0, months: {} };
+            
+            seasons[seasonKey].totalWon += (draw.won_amount || 0);
+
+            if (!seasons[seasonKey].months[monthKey]) {
+                seasons[seasonKey].months[monthKey] = { 
+                    sortKey: monthSortKey,
+                    draws: [] 
                 };
             }
 
-            // Add stats
-            seasons[seasonYear].spent += drawCost;
-            seasons[seasonYear].won += (draw.won_amount || 0);
-            if ((draw.won_amount || 0) > seasons[seasonYear].maxWin) {
-                seasons[seasonYear].maxWin = draw.won_amount;
-            }
+            seasons[seasonKey].months[monthKey].draws.push(draw);
         });
 
-        // Render Table
-        const tbody = document.getElementById('history-list');
-        tbody.innerHTML = "";
+        // 2. Render UI
+        const container = document.getElementById('archive-container');
+        container.innerHTML = '';
 
-        // Sort seasons descending (newest first)
-        const sortedSeasons = Object.values(seasons).sort((a, b) => b.year - a.year);
+        // Sort Seasons Descending
+        const sortedSeasons = Object.keys(seasons).sort().reverse();
 
-        if (sortedSeasons.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px;">No history available yet.</td></tr>`;
-            return;
-        }
-
-        sortedSeasons.forEach(s => {
-            if (s.isCurrent) return; // Don't show current season in history (it's on dashboard)
-
-            const net = s.won - s.spent;
-            const netClass = net >= 0 ? 'win' : 'loss';
-            const netSign = net >= 0 ? '+' : '-';
-
-            const row = `
-                <tr>
-                    <td>
-                        <strong>${s.year} - ${s.year + 1}</strong>
-                    </td>
-                    <td>$${s.spent.toLocaleString()}</td>
-                    <td>$${s.won.toLocaleString()}</td>
-                    <td class="${netClass}">
-                        ${netSign}$${Math.abs(net).toLocaleString()}
-                    </td>
-                    <td>$${s.maxWin.toLocaleString()}</td>
-                </tr>
+        sortedSeasons.forEach(seasonKey => {
+            const seasonData = seasons[seasonKey];
+            
+            // Create Season Section
+            const seasonDiv = document.createElement('div');
+            seasonDiv.className = 'season-group';
+            
+            // Season Header
+            const seasonHeader = document.createElement('div');
+            seasonHeader.className = 'season-header';
+            seasonHeader.innerHTML = `
+                <span>${seasonKey} Season</span>
+                <span class="season-total">Total Won: $${seasonData.totalWon.toLocaleString()}</span>
+                <span class="toggle-icon">+</span>
             `;
-            tbody.innerHTML += row;
+            
+            // Month Container (Hidden by default)
+            const monthContainer = document.createElement('div');
+            monthContainer.className = 'month-container hidden';
+
+            // Sort Months Descending
+            const sortedMonths = Object.keys(seasonData.months).sort((a, b) => {
+                return seasonData.months[b].sortKey.localeCompare(seasonData.months[a].sortKey);
+            });
+
+            sortedMonths.forEach(monthKey => {
+                const monthData = seasonData.months[monthKey];
+                
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month-group';
+                
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+                monthHeader.innerHTML = `<span>${monthKey}</span> <span class="toggle-icon">+</span>`;
+
+                const table = document.createElement('table');
+                table.className = 'history-draws hidden';
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Game</th>
+                            <th>Winning Numbers</th>
+                            <th>Won</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${monthData.draws.map(d => `
+                            <tr>
+                                <td>${d.date}</td>
+                                <td>${d.game}</td>
+                                <td>
+                                    <span class="nums">${d.numbers.join(', ')}</span> 
+                                    ${d.special ? `<span class="special-num">[${d.special}]</span>` : ''}
+                                </td>
+                                <td class="${d.won_amount > 0 ? 'win-text' : ''}">
+                                    ${d.won_amount > 0 ? '$' + d.won_amount.toLocaleString() : '-'}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+
+                // Month Toggle Logic
+                monthHeader.addEventListener('click', () => {
+                    table.classList.toggle('hidden');
+                    monthHeader.classList.toggle('active');
+                    monthHeader.querySelector('.toggle-icon').textContent = table.classList.contains('hidden') ? '+' : '-';
+                });
+
+                monthDiv.appendChild(monthHeader);
+                monthDiv.appendChild(table);
+                monthContainer.appendChild(monthDiv);
+            });
+
+            // Season Toggle Logic
+            seasonHeader.addEventListener('click', () => {
+                monthContainer.classList.toggle('hidden');
+                seasonHeader.classList.toggle('active');
+                seasonHeader.querySelector('.toggle-icon').textContent = monthContainer.classList.contains('hidden') ? '+' : '-';
+            });
+
+            seasonDiv.appendChild(seasonHeader);
+            seasonDiv.appendChild(monthContainer);
+            container.appendChild(seasonDiv);
         });
-        
-        // If we only have the current season, show a message
-        if (tbody.innerHTML === "") {
-             tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color: #777;">No past seasons archived yet.<br>This season will appear here after March 1st, ${currentSeasonStartYear + 1}.</td></tr>`;
-        }
 
     } catch (err) {
         console.error(err);
+        document.getElementById('archive-container').innerHTML = '<p>Error loading archives.</p>';
     }
 });

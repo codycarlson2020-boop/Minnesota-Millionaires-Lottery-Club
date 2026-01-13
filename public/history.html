@@ -7,7 +7,7 @@
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club History - MN Lotto Club</title>
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
     <div class="container">
@@ -19,26 +19,11 @@
             </div>
         </header>
 
-        <div class="section">
-            <div class="history-container">
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>Season</th>
-                            <th>Spent</th>
-                            <th>Won</th>
-                            <th>Net P/L</th>
-                            <th>Max Win</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-list">
-                        <!-- Javascript will populate this -->
-                        <tr><td colspan="5" style="text-align:center; padding: 20px;">Loading archives...</td></tr>
-                    </tbody>
-                </table>
-            </div>
+        <div id="archive-container">
+            <!-- Dynamic Content Here -->
+            <p style="text-align:center; padding:20px; color:#777;">Loading archives...</p>
         </div>
     </div>
-    <script src="history.js"></script>
+    <script src="history.js?v=13"></script>
 </body>
 </html>

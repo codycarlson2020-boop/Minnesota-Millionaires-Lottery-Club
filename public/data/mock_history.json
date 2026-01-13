@@ -1,0 +1,58 @@
+[
+  {
+    "game": "Powerball",
+    "date": "Jan 10th, 2026",
+    "numbers": [5, 19, 21, 28, 64],
+    "special": 14,
+    "won_amount": 100000000
+  },
+  {
+    "game": "Lotto America",
+    "date": "Dec 25th, 2025",
+    "numbers": [1, 2, 3, 4, 5],
+    "special": 6,
+    "won_amount": 20
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Nov 15th, 2025",
+    "numbers": [10, 20, 30, 40, 50],
+    "special": 5,
+    "won_amount": 0
+  },
+  {
+    "game": "Powerball",
+    "date": "Mar 5th, 2025",
+    "numbers": [11, 22, 33, 44, 55],
+    "special": 11,
+    "won_amount": 4
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Feb 14th, 2025",
+    "numbers": [5, 15, 25, 35, 45],
+    "special": 5,
+    "won_amount": 500
+  },
+  {
+    "game": "Powerball",
+    "date": "Dec 1st, 2024",
+    "numbers": [1, 2, 3, 4, 5],
+    "special": 1,
+    "won_amount": 0
+  },
+  {
+    "game": "Lotto America",
+    "date": "Jun 10th, 2024",
+    "numbers": [10, 11, 12, 13, 14],
+    "special": 10,
+    "won_amount": 2
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Apr 1st, 2023",
+    "numbers": [9, 19, 29, 39, 49],
+    "special": 9,
+    "won_amount": 10
+  }
+]

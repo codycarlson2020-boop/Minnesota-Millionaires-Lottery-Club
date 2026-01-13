@@ -16,319 +16,104 @@ header {
     margin-bottom: 20px;
 }
 
-/* Live Jackpot Banner */
-.jackpot-banner {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.jackpot-card {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    color: white;
-    padding: 15px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-bottom: 4px solid #f1c40f; /* Gold accent */
-}
-
-.jp-game {
-    font-size: 0.8em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.8;
-    margin-bottom: 5px;
-}
-
-.jp-amount {
-    font-size: 1.8em;
-    font-weight: 800;
-    color: #f1c40f;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.jp-next {
-    font-size: 0.8em;
-    font-weight: 600;
-    color: #bdc3c7;
-    margin-top: 8px;
-    background: rgba(255,255,255,0.1);
-    padding: 4px 10px;
-    border-radius: 10px;
-    display: inline-block;
-}
-
-.jp-label {
-    font-size: 0.7em;
-    font-weight: 600;
-    opacity: 0.7;
-    margin-top: 5px;
-}
-
-/* Stats Cards */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.card {
+/* History Accordion Styles */
+.season-group {
     background: white;
-    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.card h3 {
-    margin-top: 0;
-    font-size: 0.9em;
-    color: #666;
-    text-transform: uppercase;
-}
-
-.card p {
-    font-size: 1.8em;
-    font-weight: bold;
-    margin: 10px 0 0 0;
-    color: #2c3e50;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Scorecard Design */
-.scorecard {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-bottom: 30px;
-    border: 1px solid #eef2f7;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
     overflow: hidden;
 }
 
-.scorecard-header {
-    background: #f8f9fa;
+.season-header {
+    background: #2c3e50;
+    color: white;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    font-weight: 600;
 }
 
-.scorecard-header h2 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #2c3e50;
+.season-header:hover {
+    background: #34495e;
 }
 
-.draw-date {
-    font-size: 0.85em;
-    color: #7f8c8d;
-}
-
-.win-badge {
-    background: #27ae60;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
-.section-label {
-    font-size: 0.75em;
-    color: #95a5a6;
-    letter-spacing: 1px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.winning-section {
-    padding: 20px;
-    text-align: center;
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.tickets-section {
-    padding: 20px;
-    background: #fdfdfd;
-}
-
-/* Ball Styles */
-.ball-row {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.ball {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #eee;
-    color: #555;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
-.ball.drawn {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2em;
-    background: #fff;
-    border: 2px solid #34495e;
-    color: #34495e;
-}
-
-.ball.drawn.special {
-    border-color: #c0392b;
-    color: #c0392b;
-}
-
-.ball.match {
-    background: #27ae60;
-    color: white;
-    box-shadow: 0 2px 4px rgba(39, 174, 96, 0.4);
-}
-
-.ball.special {
-    border: 2px solid #c0392b;
-    background: transparent;
-    color: #c0392b;
-}
-
-.ball.special.match {
-    background: #c0392b;
-    color: white;
-}
-
-/* Ticket Grid */
-.ticket-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-}
-
-.ticket-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #eee;
-}
-
-.ticket-label {
-    font-size: 0.8em;
-    color: #aaa;
-    margin-right: 5px;
-    width: 20px;
-}
-
-.ticket-win {
+.season-total {
     margin-left: auto;
-    color: #27ae60;
-    font-weight: bold;
-    font-size: 0.95em;
-    background: #eafaf1;
+    margin-right: 15px;
+    font-size: 0.9em;
+    opacity: 0.9;
+    background: rgba(255,255,255,0.1);
     padding: 2px 8px;
     border-radius: 4px;
 }
 
-/* History & Rules Tables */
-.history-container, .rules-grid {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    padding: 20px;
-    overflow-x: auto;
-}
-
-.history-table, table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.history-table th, .history-table td {
-    padding: 12px 15px;
-    text-align: left;
+.month-group {
     border-bottom: 1px solid #eee;
 }
 
-.history-table th {
-    background-color: #f8f9fa;
-    color: #666;
-    font-weight: 600;
-}
-
-.history-table tr:last-child td {
-    border-bottom: none;
-}
-
-td.win { color: #27ae60; font-weight: bold; }
-td.loss { color: #c0392b; font-weight: bold; }
-
-/* Reused Rule Styles */
-.rules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
-}
-
-.rule-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    border: 1px solid #eee;
-}
-
-.rule-card h2 {
-    margin-top: 0;
-    color: #2c3e50;
-    margin-bottom: 5px;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
-}
-
-.price-tag {
-    background: #eef2f7;
-    color: #576574;
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.85em;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.draw-time {
-    color: #7f8c8d;
-    font-size: 0.85em;
+.month-header {
+    padding: 12px 20px;
+    background: #f8f9fa;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
     font-weight: 500;
-    margin: 0 0 15px 0;
-    font-style: italic;
+    color: #555;
 }
 
-table {
+.month-header:hover {
+    background: #eee;
+}
 
-.jackpot td {
-    color: #d35400;
+.history-draws {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.history-draws th, .history-draws td {
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.history-draws th {
+    color: #999;
+    font-weight: 600;
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+.nums {
+    font-family: monospace;
+    color: #555;
+}
+
+.special-num {
+    font-family: monospace;
+    color: #c0392b;
     font-weight: bold;
 }
 
+.win-text {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.toggle-icon {
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+}
+
+/* Link Styles */
 nav a {
     text-decoration: none;
     color: #3498db;
