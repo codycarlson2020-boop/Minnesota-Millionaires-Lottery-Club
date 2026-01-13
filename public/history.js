@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Sort Seasons Descending
         const sortedSeasons = Object.keys(seasons).sort().reverse();
 
-        sortedSeasons.forEach(seasonKey => {
+        sortedSeasons.forEach((seasonKey, index) => {
             const seasonData = seasons[seasonKey];
             
             // Create Season Section
@@ -63,9 +63,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <span class="toggle-icon">+</span>
             `;
             
-            // Month Container (Hidden by default)
+            // Month Container (Hidden by default, unless first season)
             const monthContainer = document.createElement('div');
-            monthContainer.className = 'month-container hidden';
+            monthContainer.className = index === 0 ? 'month-container' : 'month-container hidden';
+            
+            // If expanded, update icon
+            if (index === 0) {
+                seasonHeader.classList.add('active');
+                seasonHeader.querySelector('.toggle-icon').textContent = '-';
+            }
 
             // Sort Months Descending
             const sortedMonths = Object.keys(seasonData.months).sort((a, b) => {
