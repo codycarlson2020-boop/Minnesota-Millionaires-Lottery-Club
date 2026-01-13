@@ -173,85 +173,85 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderedGames.add(gameKey);
 
             if (rules[gameKey]) {
-            const card = document.createElement('div');
-            card.className = 'scorecard';
-            
-            // Header: Game Name, Date, Win Amount
-            const winLabel = draw.won_amount > 0 
-                ? `<span class="win-badge">WON $${draw.won_amount.toLocaleString()}</span>` 
-                : '';
-
-            // Render Winning Numbers (Big & Bold)
-            const winningNumsHTML = draw.numbers.map(n => `<span class="ball drawn">${n}</span>`).join('');
-            const winningSpecialHTML = draw.special ? `<span class="ball drawn special">${draw.special}</span>` : '';
-
-            // Render Our Tickets (Grid)
-            let ticketsHTML = '<div class="ticket-grid">';
-            const myTickets = clubNumbers[gameKey] || [];
-            
-            if (myTickets.length === 0) {
-                ticketsHTML += '<div class="no-tickets">No tickets played for this game.</div>';
-            } else {
-                myTickets.forEach((ticket, index) => {
-                    // Check matches for this specific ticket
-                    const numSpans = ticket.numbers.map(n => {
-                        const isMatch = draw.numbers.includes(n);
-                        return `<span class="ball ${isMatch ? 'match' : ''}">${n}</span>`;
-                    }).join('');
-
-                    let specialSpan = '';
-                    if (ticket.special !== undefined) {
-                        const isSpecialMatch = (ticket.special === draw.special);
-                        specialSpan = `<span class="ball special ${isSpecialMatch ? 'match' : ''}">${ticket.special}</span>`;
-                    }
-
-                    // Check for win amount
-                    let winAmountHTML = '';
-                    if (draw.matches) {
-                        // Compare arrays by joining them to strings
-                        const ticketStr = ticket.numbers.join(',');
-                        const match = draw.matches.find(m => m.pick.join(',') === ticketStr);
-                        if (match && match.won > 0) {
-                            winAmountHTML = `<span class="ticket-win">+$${match.won.toLocaleString()}</span>`;
-                        }
-                    }
-
-                    ticketsHTML += `
-                        <div class="ticket-row">
-                            <span class="ticket-label">#${index + 1}</span>
-                            ${numSpans}
-                            ${specialSpan}
-                            ${winAmountHTML}
-                        </div>
-                    `;
-                });
-            }
-            ticketsHTML += '</div>';
-
-            card.innerHTML = `
-                <div class="scorecard-header">
-                    <div>
-                        <h2>${draw.game}</h2>
-                        <span class="draw-date">${draw.date}</span>
-                    </div>
-                    ${winLabel}
-                </div>
+                const card = document.createElement('div');
+                card.className = 'scorecard';
                 
-                <div class="winning-section">
-                    <div class="section-label">WINNING NUMBERS</div>
-                    <div class="ball-row large">
-                        ${winningNumsHTML}
-                        ${winningSpecialHTML}
+                // Header: Game Name, Date, Win Amount
+                const winLabel = draw.won_amount > 0 
+                    ? `<span class="win-badge">WON $${draw.won_amount.toLocaleString()}</span>` 
+                    : '';
+
+                // Render Winning Numbers (Big & Bold)
+                const winningNumsHTML = draw.numbers.map(n => `<span class="ball drawn">${n}</span>`).join('');
+                const winningSpecialHTML = draw.special ? `<span class="ball drawn special">${draw.special}</span>` : '';
+
+                // Render Our Tickets (Grid)
+                let ticketsHTML = '<div class="ticket-grid">';
+                const myTickets = clubNumbers[gameKey] || [];
+                
+                if (myTickets.length === 0) {
+                    ticketsHTML += '<div class="no-tickets">No tickets played for this game.</div>';
+                } else {
+                    myTickets.forEach((ticket, index) => {
+                        // Check matches for this specific ticket
+                        const numSpans = ticket.numbers.map(n => {
+                            const isMatch = draw.numbers.includes(n);
+                            return `<span class="ball ${isMatch ? 'match' : ''}">${n}</span>`;
+                        }).join('');
+
+                        let specialSpan = '';
+                        if (ticket.special !== undefined) {
+                            const isSpecialMatch = (ticket.special === draw.special);
+                            specialSpan = `<span class="ball special ${isSpecialMatch ? 'match' : ''}">${ticket.special}</span>`;
+                        }
+
+                        // Check for win amount
+                        let winAmountHTML = '';
+                        if (draw.matches) {
+                            const ticketStr = ticket.numbers.join(',');
+                            const match = draw.matches.find(m => m.pick.join(',') === ticketStr);
+                            if (match && match.won > 0) {
+                                winAmountHTML = `<span class="ticket-win">+$${match.won.toLocaleString()}</span>`;
+                            }
+                        }
+
+                        ticketsHTML += `
+                            <div class="ticket-row">
+                                <span class="ticket-label">#${index + 1}</span>
+                                ${numSpans}
+                                ${specialSpan}
+                                ${winAmountHTML}
+                            </div>
+                        `;
+                    });
+                }
+                ticketsHTML += '</div>';
+
+                card.innerHTML = `
+                    <div class="scorecard-header">
+                        <div>
+                            <h2>${draw.game}</h2>
+                            <span class="draw-date">${draw.date}</span>
+                        </div>
+                        ${winLabel}
                     </div>
-                </div>
+                    
+                    <div class="winning-section">
+                        <div class="section-label">WINNING NUMBERS</div>
+                        <div class="ball-row large">
+                            ${winningNumsHTML}
+                            ${winningSpecialHTML}
+                        </div>
+                    </div>
 
-                <div class="tickets-section">
-                    <div class="section-label">OUR TICKETS</div>
-                    ${ticketsHTML}
-                </div>
-            `;
+                    <div class="tickets-section">
+                        <div class="section-label">OUR TICKETS</div>
+                        ${ticketsHTML}
+                    </div>
+                `;
 
-            resultsList.appendChild(card);
+                resultsList.appendChild(card);
+            }
         });
 
         // 3. Update Totals
