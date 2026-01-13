@@ -7,7 +7,134 @@
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club History - MN Lotto Club</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* History Accordion Styles */
+        .season-group {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .season-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .season-header:hover {
+            background: #34495e;
+        }
+
+        .season-total {
+            margin-left: auto;
+            margin-right: 15px;
+            font-size: 0.9em;
+            opacity: 0.9;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .month-group {
+            border-bottom: 1px solid #eee;
+        }
+
+        .month-header {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .month-header:hover {
+            background: #eee;
+        }
+
+        .history-draws {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        .history-draws th, .history-draws td {
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .history-draws th {
+            color: #999;
+            font-weight: 600;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+
+        .nums {
+            font-family: monospace;
+            color: #555;
+        }
+
+        .special-num {
+            font-family: monospace;
+            color: #c0392b;
+            font-weight: bold;
+        }
+
+        .win-text {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .toggle-icon {
+            font-weight: bold;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Link Styles */
+        nav a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
