@@ -1,5 +1,44 @@
 [
   {
+    "game": "Gopher 5",
+    "date": "Jan 12th, 2026",
+    "numbers": [
+      2,
+      25,
+      26,
+      29,
+      44
+    ],
+    "jackpot": "$305,000"
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 12th, 2026",
+    "numbers": [
+      4,
+      16,
+      21,
+      28,
+      31
+    ],
+    "jackpot": "$77,000"
+  },
+  {
+    "game": "Lotto America",
+    "date": "Jan 12th, 2026",
+    "numbers": [
+      9,
+      20,
+      25,
+      30,
+      51
+    ],
+    "special": 10,
+    "jackpot": "$12,510,000",
+    "won_amount": 0,
+    "matches": []
+  },
+  {
     "game": "Lotto America",
     "date": "Jan 10th, 2026",
     "numbers": [
