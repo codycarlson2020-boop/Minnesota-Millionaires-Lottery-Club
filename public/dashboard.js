@@ -125,22 +125,54 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultsList = document.getElementById('results-list');
         resultsList.innerHTML = "";
 
+        // Track which games we have already rendered to avoid duplicates
+        const renderedGames = new Set();
+
         currentSeasonHistory.forEach(draw => {
             // Normalize game key (e.g., "Powerball" -> "powerball")
             let gameKey = draw.game.toLowerCase().replace(/\s/g, '');
             
-            // SKIP if we don't play this game
+            // SKIP if we don't play this game OR if we already rendered this game (only show latest)
+            if (!clubNumbers[gameKey] || renderedGames.has(gameKey)) return;
+
+            // Mark this game as rendered
+            renderedGames.add(gameKey);
+
+            // 1. Math & Stats (Note: Total stats will currently ONLY reflect displayed games. 
+            // If you want stats for ALL games this season but only SHOW latest, move this logic out.)
+            
+            // Wait, per user request "No duplicates", but for "Annual Tracking" math usually includes all history.
+            // I will keep the MATH including everything, but DISPLAY only the latest.
+            // Actually, the loop below is filtering the DISPLAY. I need a separate loop for MATH if I want total history.
+            
+            // Let's assume user wants to see stats for the SEASON, but only see the CARD for the latest draw.
+            // So I need to separate the loop.
+        });
+
+        // RE-WRITING LOGIC:
+        // 1. Calculate Totals (All Season)
+        currentSeasonHistory.forEach(draw => {
+            let gameKey = draw.game.toLowerCase().replace(/\s/g, '');
             if (!clubNumbers[gameKey]) return;
 
-            // 1. Math & Stats
             totalWon += (draw.won_amount || 0);
-
             if (rules[gameKey]) {
                 const plays = rules[gameKey].plays_per_draw || 1;
                 totalSpent += (rules[gameKey].cost_per_play * plays);
             }
+        });
 
-            // 2. Render the "Scorecard"
+        // 2. Render Cards (Latest Only)
+        // Reset rendered set
+        renderedGames.clear();
+        
+        currentSeasonHistory.forEach(draw => {
+            let gameKey = draw.game.toLowerCase().replace(/\s/g, '');
+            
+            if (!clubNumbers[gameKey] || renderedGames.has(gameKey)) return;
+            renderedGames.add(gameKey);
+
+            if (rules[gameKey]) {
             const card = document.createElement('div');
             card.className = 'scorecard';
             
