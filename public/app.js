@@ -14,6 +14,43 @@ document.addEventListener('DOMContentLoaded', async () => {
         const clubNumbers = await clubRes.json();
         const jackpots = await jackpotRes.json();
 
+        // Helper to get next draw date
+        const getNextDrawDate = (gameKey) => {
+            const daysMap = { 'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5, 'sat': 6 };
+            const drawDays = {
+                'powerball': [1, 3, 6],       // Mon, Wed, Sat
+                'megamillions': [2, 5],       // Tue, Fri
+                'lottoamerica': [1, 3, 6]     // Mon, Wed, Sat
+            };
+
+            const targetDays = drawDays[gameKey];
+            if (!targetDays) return '';
+
+            const today = new Date();
+            const currentDay = today.getDay(); // 0-6
+            
+            // Find next day in list
+            let nextDay = -1;
+            // Check later this week
+            for (let d of targetDays) {
+                if (d > currentDay) {
+                    nextDay = d;
+                    break;
+                }
+            }
+            // If not found, circle back to first day next week
+            if (nextDay === -1) nextDay = targetDays[0];
+
+            // Calculate date difference
+            let diff = nextDay - currentDay;
+            if (diff <= 0) diff += 7;
+            
+            const nextDate = new Date(today);
+            nextDate.setDate(today.getDate() + diff);
+
+            return nextDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        };
+
         // ------------------------------------------
         // RENDER LIVE JACKPOTS
         // ------------------------------------------
@@ -23,12 +60,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const gamesToShow = ['powerball', 'megamillions', 'lottoamerica'];
             gamesToShow.forEach(game => {
                 if (jackpots[game]) {
+                    const nextDraw = getNextDrawDate(game);
                     const card = document.createElement('div');
                     card.className = 'jackpot-card';
                     card.innerHTML = `
                         <div class="jp-game">${game === 'lottoamerica' ? 'Lotto America' : game.charAt(0).toUpperCase() + game.slice(1)}</div>
                         <div class="jp-amount">${jackpots[game]}</div>
-                        <div class="jp-label">Current Jackpot</div>
+                        <div class="jp-next">Next Draw: ${nextDraw}</div>
                     `;
                     jackpotContainer.appendChild(card);
                 }

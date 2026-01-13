@@ -49,6 +49,17 @@ header {
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+.jp-next {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: #bdc3c7;
+    margin-top: 8px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
 .jp-label {
     font-size: 0.7em;
     font-weight: 600;
@@ -300,8 +311,18 @@ td.loss { color: #c0392b; font-weight: bold; }
     border-radius: 15px;
     font-size: 0.85em;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
+
+.draw-time {
+    color: #7f8c8d;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+    font-style: italic;
+}
+
+table {
 
 .jackpot td {
     color: #d35400;
