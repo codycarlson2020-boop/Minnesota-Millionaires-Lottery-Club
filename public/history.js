@@ -31,10 +31,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!seasons[seasonKey].months[monthKey]) {
                 seasons[seasonKey].months[monthKey] = { 
                     sortKey: monthSortKey,
+                    totalWon: 0,
                     draws: [] 
                 };
             }
 
+            seasons[seasonKey].months[monthKey].totalWon += (draw.won_amount || 0);
             seasons[seasonKey].months[monthKey].draws.push(draw);
         });
 
@@ -78,7 +80,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 const monthHeader = document.createElement('div');
                 monthHeader.className = 'month-header';
-                monthHeader.innerHTML = `<span>${monthKey}</span> <span class="toggle-icon">+</span>`;
+                
+                // Show Monthly Total
+                const monthTotalHTML = monthData.totalWon > 0 
+                    ? `<span class="month-total win-text">+$${monthData.totalWon.toLocaleString()}</span>`
+                    : `<span class="month-total">$0</span>`;
+
+                monthHeader.innerHTML = `
+                    <div style="display:flex; gap:15px; align-items:center;">
+                        <span>${monthKey}</span>
+                        ${monthTotalHTML}
+                    </div>
+                    <span class="toggle-icon">+</span>
+                `;
 
                 const table = document.createElement('table');
                 table.className = 'history-draws hidden';

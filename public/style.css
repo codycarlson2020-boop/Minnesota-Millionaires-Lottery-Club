@@ -68,6 +68,16 @@ header {
     background: #eee;
 }
 
+.month-total {
+    font-size: 0.9em;
+    color: #999;
+    font-weight: 600;
+}
+
+.month-total.win-text {
+    color: #27ae60;
+}
+
 .history-draws {
     width: 100%;
     border-collapse: collapse;
