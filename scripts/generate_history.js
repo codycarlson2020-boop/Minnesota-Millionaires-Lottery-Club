@@ -10,8 +10,8 @@ const GAMES = {
     'Lotto America': { days: [1, 3, 6], cost: 1, plays: 5 }   // Mon, Wed, Sat
 };
 
-// Date Range: March 1, 2025 to Feb 28, 2026
-const START_DATE = new Date('2025-03-01');
+// Date Range: March 1, 2023 to Feb 28, 2026 (3 Seasons)
+const START_DATE = new Date('2023-03-01');
 const END_DATE = new Date('2026-02-28');
 
 const history = [];
