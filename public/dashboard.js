@@ -103,20 +103,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             'lotto america': 3
         };
 
-        // Sort history by Date (Descending) and then by Game Priority
+        // Sort history by Game Priority first, then by Date (Descending)
         currentSeasonHistory.sort((a, b) => {
-            // Sort by Date first (Newest first)
-            const dateA = parseDate(a.date);
-            const dateB = parseDate(b.date);
-            
-            if (dateB - dateA !== 0) {
-                return dateB - dateA;
-            }
-
-            // If same date, sort by game priority
+            // 1. Sort by Game Priority
             const pA = gamePriority[a.game.toLowerCase()] || 99;
             const pB = gamePriority[b.game.toLowerCase()] || 99;
-            return pA - pB;
+            
+            if (pA !== pB) {
+                return pA - pB;
+            }
+
+            // 2. If same game, sort by Date (Newest first)
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
+            return dateB - dateA;
         });
 
         let totalWon = 0;
