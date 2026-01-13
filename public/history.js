@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         // Switch to mock data for demo purposes, or use real history.json
         // const historyRes = await fetch('./data/history.json');
-        const historyRes = await fetch('./data/mock_history.json');
+        const historyRes = await fetch('./data/archive.json');
         const history = await historyRes.json();
 
         // Helper to parse dates
