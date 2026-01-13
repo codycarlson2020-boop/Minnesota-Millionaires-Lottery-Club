@@ -1,5 +1,20 @@
 [
   {
+    "game": "Powerball",
+    "date": "Jan 12th, 2026",
+    "numbers": [
+      5,
+      27,
+      45,
+      56,
+      59
+    ],
+    "special": 4,
+    "jackpot": "$137,000,000",
+    "won_amount": 0,
+    "matches": []
+  },
+  {
     "game": "Gopher 5",
     "date": "Jan 12th, 2026",
     "numbers": [
