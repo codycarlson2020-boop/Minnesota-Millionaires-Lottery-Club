@@ -1,5 +1,45 @@
 [
   {
+    "game": "North 5",
+    "date": "Jan 13th, 2026",
+    "numbers": [
+      1,
+      12,
+      15,
+      23,
+      31
+    ],
+    "jackpot": "$89,000"
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Jan 13th, 2026",
+    "numbers": [
+      16,
+      40,
+      56,
+      64,
+      66
+    ],
+    "special": 4,
+    "jackpot": "$215,000,000",
+    "won_amount": 2,
+    "matches": [
+      {
+        "pick": [
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "matches": 0,
+        "special": true,
+        "won": 2
+      }
+    ]
+  },
+  {
     "game": "Powerball",
     "date": "Jan 12th, 2026",
     "numbers": [
