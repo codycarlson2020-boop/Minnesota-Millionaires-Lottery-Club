@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club History - MN Lotto Club</title>
-    <link rel="stylesheet" href="style.css?v=16">
+    <title>Club History | MN Lotto Club</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css?v=17">
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>Club Archive</h1>
-            <p>Past Season Performance</p>
-            <div style="margin-top: 10px;">
-                <a href="index.html" style="text-decoration: none; color: #3498db; font-size: 0.9em;">← Back to Current Season</a>
+    <nav class="top-nav">
+        <div class="nav-content">
+            <div class="brand">
+                <a href="index.html" style="text-decoration: none; color: inherit;"><i
+                        class="fa-solid fa-layer-group"></i> MN Lotto Club</a>
             </div>
-        </header>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Dashboard</a>
+                <a href="rules.html" class="nav-item">Rules</a>
+                <span class="member-badge">History Access</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="club-container">
+        <div class="section-header">
+            <h2><i class="fa-solid fa-clock-rotate-left"></i> Club Archive</h2>
+        </div>
 
         <div id="archive-container">
             <!-- Dynamic Content Here -->
-            <p style="text-align:center; padding:20px; color:#777;">Loading archives...</p>
+            <p class="loading-text">Loading archives...</p>
         </div>
     </div>
-    <script src="history.js?v=16"></script>
+
+    <script src="history.js?v=17"></script>
 </body>
+
 </html>
