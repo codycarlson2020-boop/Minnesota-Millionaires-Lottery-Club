@@ -49,7 +49,7 @@ jobs:
           # Only commit if there are changes
           if [[ `git status --porcelain` ]]; then
             git commit -m "Auto-update lottery results"
-            git push
+            git push origin HEAD:main
           else
             echo "No changes to commit"
           fi

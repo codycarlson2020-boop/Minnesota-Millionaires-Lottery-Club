@@ -135,6 +135,7 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
 
     } catch (error) {
         console.error('Scraping error:', error);
+        process.exit(1);
     } finally {
         await browser.close();
     }
