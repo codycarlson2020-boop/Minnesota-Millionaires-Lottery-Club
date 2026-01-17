@@ -1,5 +1,44 @@
 [
   {
+    "game": "Gopher 5",
+    "date": "Jan 16th, 2026",
+    "numbers": [
+      6,
+      8,
+      13,
+      21,
+      32
+    ],
+    "jackpot": "$370,000"
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 16th, 2026",
+    "numbers": [
+      5,
+      8,
+      11,
+      13,
+      31
+    ],
+    "jackpot": "$139,000"
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Jan 16th, 2026",
+    "numbers": [
+      2,
+      22,
+      33,
+      42,
+      67
+    ],
+    "special": 1,
+    "jackpot": "$230,000,000",
+    "won_amount": 0,
+    "matches": []
+  },
+  {
     "game": "North 5",
     "date": "Jan 15th, 2026",
     "numbers": [
