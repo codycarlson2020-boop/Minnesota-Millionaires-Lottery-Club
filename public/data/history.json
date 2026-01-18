@@ -1,5 +1,48 @@
 [
   {
+    "game": "Powerball",
+    "date": "Jan 17th, 2026",
+    "numbers": [
+      5,
+      8,
+      27,
+      49,
+      57
+    ],
+    "special": 14,
+    "jackpot": "$179,000,000",
+    "won_amount": 4,
+    "matches": [
+      {
+        "pick": [
+          5,
+          19,
+          21,
+          28,
+          64
+        ],
+        "matches": 1,
+        "special": true,
+        "won": 4
+      }
+    ]
+  },
+  {
+    "game": "Lotto America",
+    "date": "Jan 17th, 2026",
+    "numbers": [
+      7,
+      28,
+      29,
+      35,
+      39
+    ],
+    "special": 8,
+    "jackpot": "$12,980,000",
+    "won_amount": 0,
+    "matches": []
+  },
+  {
     "game": "North 5",
     "date": "Jan 17th, 2026",
     "numbers": [
