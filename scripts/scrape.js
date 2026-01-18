@@ -16,6 +16,9 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
     
     // Set User-Agent to mimic a real browser
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    
+    // Set viewport to ensure desktop layout
+    await page.setViewport({ width: 1920, height: 1080 });
 
     try {
         await page.goto(TARGET_URL, { waitUntil: 'networkidle2', timeout: 60000 });
@@ -23,9 +26,9 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
 
         // Wait for the content to appear (robustness)
         try {
-            await page.waitForSelector('a[aria-label]', { timeout: 10000 });
+            await page.waitForSelector('.card--winning-numbers', { timeout: 15000 });
         } catch (e) {
-            console.log('Timeout waiting for specific selector, proceeding anyway...');
+            console.log('Timeout waiting for .card--winning-numbers, proceeding anyway...');
         }
 
         // Extract all "Game Details" links with aria-labels
@@ -35,6 +38,8 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                 .filter(a => a.innerText.includes('Game Details'))
                 .map(a => a.getAttribute('aria-label'));
         });
+
+        console.log(`Found ${results.length} "Game Details" links.`);
 
         const parsedResults = [];
         const currentJackpots = {};
