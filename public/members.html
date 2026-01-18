@@ -289,9 +289,10 @@
 
                 querySnapshot.forEach((doc) => {
                     const member = doc.data();
-                    const name = member.name || "Unknown Member";
-                    const status = member.status || "Pending";
-                    const role = member.role || "";
+                    // Handle both Capital and Lowercase field names from Firestore
+                    const name = member.Name || member.name || "Unknown Member";
+                    const status = member.Status || member.status || "Pending";
+                    const role = member.Role || member.role || "";
 
                     let statusHtml = (status.toLowerCase() === 'paid') 
                         ? `<span class="status-paid"><i class="fa-solid fa-check"></i> Paid</span>`
