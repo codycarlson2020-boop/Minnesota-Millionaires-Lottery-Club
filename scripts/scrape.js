@@ -163,7 +163,7 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                 const pages = await browser.pages();
                 if (pages.length > 0) {
                     const page = pages[0];
-                    const screenshotPath = path.join(__dirname, '../netlify_debug.png');
+                    const screenshotPath = path.join(__dirname, '../scrape_error.png');
                     await page.screenshot({ path: screenshotPath, fullPage: true });
                     console.log(`Screenshot saved to ${screenshotPath}`);
                 }
