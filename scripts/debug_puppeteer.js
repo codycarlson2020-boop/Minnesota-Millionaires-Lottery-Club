@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
     console.log('DEBUG: Starting minimal Puppeteer test...');
     try {
         const browser = await puppeteer.launch({
-            headless: "new",
+            headless: true,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',

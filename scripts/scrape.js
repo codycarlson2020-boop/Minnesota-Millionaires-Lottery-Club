@@ -11,7 +11,7 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
     let browser;
     try {
         browser = await puppeteer.launch({
-            headless: "new",
+            headless: true,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
