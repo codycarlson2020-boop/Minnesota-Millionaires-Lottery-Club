@@ -348,16 +348,22 @@
                     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                     const user = userCredential.user;
 
-                    // Create member record in Firestore
-                    await setDoc(doc(db, "members", user.uid), {
+                    // Create record in 'signups' collection (NOT members)
+                    // This ensures they don't show up on the roster until approved/moved
+                    await setDoc(doc(db, "signups", user.uid), {
                         name: fullName,
                         status: "Pending",
-                        role: "Member",
+                        role: "Applicant",
                         email: email,
                         joinedAt: new Date().toISOString()
                     });
 
-                    console.log("Member created successfully!");
+                    console.log("Signup successful! Awaiting admin approval.");
+                    // Optional: Show a message saying "Account created. You will be added to the roster after review."
+                    alert("Account created! You can now log in, but you won't appear on the roster until your dues are verified.");
+                    
+                    // Switch to login view automatically
+                    toggleAuth.click(); 
                 } catch (error) {
                     errorMsg.innerText = error.message;
                     errorMsg.style.display = 'block';
