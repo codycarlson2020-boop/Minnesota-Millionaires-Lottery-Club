@@ -41,7 +41,21 @@ jobs:
         run: npm install
 
       - name: Run Scraper
+        id: scraper
+        continue-on-error: true
         run: node scripts/scrape.js
+
+      - name: Upload Debug Screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-screenshot
+          path: netlify_debug.png
+          retention-days: 1
+
+      - name: Check Scraper Status
+        if: steps.scraper.outcome == 'failure'
+        run: exit 1
 
       - name: Run Checker
         run: node scripts/checker.js
