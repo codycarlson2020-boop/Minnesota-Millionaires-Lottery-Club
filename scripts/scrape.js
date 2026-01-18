@@ -12,7 +12,12 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
     try {
         browser = await puppeteer.launch({
             headless: "new",
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--ignore-certificate-errors',
+                '--no-zygote'
+            ]
         });
         const page = await browser.newPage();
         
@@ -151,6 +156,22 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
 
     } catch (error) {
         console.error('Scraping error:', error);
+        
+        // Try to take a screenshot if browser is active
+        if (browser) {
+            try {
+                const pages = await browser.pages();
+                if (pages.length > 0) {
+                    const page = pages[0];
+                    const screenshotPath = path.join(__dirname, '../netlify_debug.png');
+                    await page.screenshot({ path: screenshotPath, fullPage: true });
+                    console.log(`Screenshot saved to ${screenshotPath}`);
+                }
+            } catch (screenshotError) {
+                console.error('Failed to take error screenshot:', screenshotError);
+            }
+        }
+        
         process.exit(1);
     } finally {
         if (browser) {
