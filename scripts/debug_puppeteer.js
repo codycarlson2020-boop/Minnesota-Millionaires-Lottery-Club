@@ -5,7 +5,14 @@ const puppeteer = require('puppeteer');
     try {
         const browser = await puppeteer.launch({
             headless: "new",
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--ignore-certificate-errors', '--no-zygote']
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--no-zygote',
+                '--ignore-certificate-errors'
+            ]
         });
         console.log('DEBUG: Browser launched successfully.');
         

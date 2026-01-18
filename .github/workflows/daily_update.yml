@@ -70,7 +70,7 @@ jobs:
         run: |
           git config --global user.name 'LotteryBot'
           git config --global user.email 'bot@noreply.github.com'
-          git add public/data/history.json netlify_debug.png
+          git add public/data/history.json
           # Only commit if there are changes
           if [[ `git status --porcelain` ]]; then
             git commit -m "Auto-update lottery results"

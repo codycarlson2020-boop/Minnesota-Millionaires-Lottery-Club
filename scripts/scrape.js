@@ -15,8 +15,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
-                '--ignore-certificate-errors',
-                '--no-zygote'
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--no-zygote',
+                '--ignore-certificate-errors'
             ]
         });
         const page = await browser.newPage();
