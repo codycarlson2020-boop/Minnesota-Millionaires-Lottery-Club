@@ -8,19 +8,20 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
 
 (async () => {
     console.log('Starting MN Lottery Scraper...');
-    const browser = await puppeteer.launch({
-        headless: "new",
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    const page = await browser.newPage();
-    
-    // Set User-Agent to mimic a real browser
-    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
-    
-    // Set viewport to ensure desktop layout
-    await page.setViewport({ width: 1920, height: 1080 });
-
+    let browser;
     try {
+        browser = await puppeteer.launch({
+            headless: "new",
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+        const page = await browser.newPage();
+        
+        // Set User-Agent to mimic a real browser
+        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+        
+        // Set viewport to ensure desktop layout
+        await page.setViewport({ width: 1920, height: 1080 });
+
         await page.goto(TARGET_URL, { waitUntil: 'networkidle2', timeout: 60000 });
         console.log('Page loaded.');
 
@@ -152,6 +153,8 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
         console.error('Scraping error:', error);
         process.exit(1);
     } finally {
-        await browser.close();
+        if (browser) {
+            await browser.close();
+        }
     }
 })();
