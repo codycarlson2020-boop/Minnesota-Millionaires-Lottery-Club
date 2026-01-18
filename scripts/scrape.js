@@ -7,9 +7,10 @@ const HISTORY_FILE = path.join(__dirname, '../public/data/history.json');
 const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.json');
 
 (async () => {
-    console.log('Starting MN Lottery Scraper...');
+    console.log('--- MN Lottery Scraper Start ---');
     let browser;
     try {
+        console.log('Launching browser...');
         browser = await puppeteer.launch({
             headless: true,
             dumpio: true,
@@ -22,167 +23,152 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                 '--ignore-certificate-errors'
             ]
         });
+        
         const page = await browser.newPage();
-        
-        // Set User-Agent to mimic a real browser
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
-        
-        // Set viewport to ensure desktop layout
         await page.setViewport({ width: 1920, height: 1080 });
 
-        await page.goto(TARGET_URL, { waitUntil: 'networkidle2', timeout: 60000 });
-        const title = await page.title();
-        console.log(`Page loaded. Title: "${title}"`);
+        console.log(`Navigating to ${TARGET_URL}...`);
+        await page.goto(TARGET_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
         
-        // Take a snapshot immediately after load to see what we have
+        const title = await page.title();
+        console.log(`Page title: "${title}"`);
+
+        // Wait a few seconds for JS to execute
+        console.log('Waiting for content to settle...');
+        await new Promise(r => setTimeout(r, 5000));
+
+        // Early debug screenshot
         await page.screenshot({ path: path.join(__dirname, '../debug_page_load.png'), fullPage: true });
 
-        // Wait for the content to appear (robustness)
-        try {
-            await page.waitForSelector('.card--winning-numbers', { timeout: 15000 });
-        } catch (e) {
-            console.log('Timeout waiting for .card--winning-numbers, proceeding anyway...');
-        }
-
-        // Extract all "Game Details" links with aria-labels
-        const results = await page.evaluate(() => {
-            const links = Array.from(document.querySelectorAll('a[aria-label]'));
+        console.log('Extracting aria-labels from "Game Details" links...');
+        const labels = await page.evaluate(() => {
+            const links = Array.from(document.querySelectorAll('a'));
             return links
-                .filter(a => a.innerText.includes('Game Details'))
-                .map(a => a.getAttribute('aria-label'));
+                .filter(a => a.innerText && a.innerText.includes('Game Details'))
+                .map(a => {
+                    return {
+                        text: a.innerText,
+                        aria: a.getAttribute('aria-label'),
+                        href: a.getAttribute('href')
+                    };
+                });
         });
 
-        console.log(`Found ${results.length} "Game Details" links.`);
-
+        console.log(`Found ${labels.length} potential result links.`);
+        
         const parsedResults = [];
         const currentJackpots = {};
-        
-        results.forEach(label => {
-            // Extract Jackpot amount if present (e.g. "$124,000,000")
-            const jackpotMatch = label.match(/Estimated jackpot is ([\$,\d]+)/);
+
+        labels.forEach((item, index) => {
+            const label = item.aria || "";
+            if (!label) {
+                console.log(`  [${index}] Item has no aria-label, skipping.`);
+                return;
+            }
+
+            console.log(`  [${index}] Processing label: "${label.substring(0, 100)}..."`);
+
+            // Extract Jackpot
+            const jackpotMatch = label.match(/jackpot is ([\$,\d]+)/i);
             const jackpotValue = jackpotMatch ? jackpotMatch[1] : 'Unknown';
 
-            // Powerball
+            let gameName = '';
+            let match = null;
+
             if (label.includes('Powerball')) {
-                const match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/);
-                if (match) {
-                    parsedResults.push({
-                        game: 'Powerball',
-                        date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number),
-                        special: parseInt(match[3]),
-                        jackpot: jackpotValue
-                    });
-                    if (!currentJackpots['powerball']) currentJackpots['powerball'] = jackpotValue;
-                }
+                gameName = 'Powerball';
+                match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/i);
+            } else if (label.includes('Mega Millions')) {
+                gameName = 'Mega Millions';
+                match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/i);
+            } else if (label.includes('Lotto America')) {
+                gameName = 'Lotto America';
+                match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/i);
+            } else if (label.includes('Gopher 5')) {
+                gameName = 'Gopher 5';
+                match = label.match(/drawing on (.*?)\. (.*?) Estimated/i);
+            } else if (label.includes('North 5')) {
+                gameName = 'North 5';
+                match = label.match(/drawing on (.*?)\. (.*?) Estimated/i);
             }
-            // Mega Millions
-            else if (label.includes('Mega Millions')) {
-                const match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/);
-                if (match) {
-                    parsedResults.push({
-                        game: 'Mega Millions',
-                        date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number),
-                        special: parseInt(match[3]),
+
+            if (gameName && match) {
+                try {
+                    const drawDate = match[1].trim();
+                    const numString = match[2].trim();
+                    const numbers = numString.split(/\s+/).map(n => parseInt(n)).filter(n => !isNaN(n));
+                    
+                    const result = {
+                        game: gameName,
+                        date: drawDate,
+                        numbers: numbers,
                         jackpot: jackpotValue
-                    });
-                    if (!currentJackpots['megamillions']) currentJackpots['megamillions'] = jackpotValue;
+                    };
+
+                    if (match[3]) {
+                        result.special = parseInt(match[3]);
+                    }
+
+                    console.log(`    -> Parsed: ${gameName} on ${drawDate}: ${numbers.join(', ')} (Special: ${result.special || 'N/A'})`);
+                    parsedResults.push(result);
+
+                    const jackKey = gameName.toLowerCase().replace(/\s/g, '');
+                    if (!currentJackpots[jackKey]) currentJackpots[jackKey] = jackpotValue;
+                } catch (parseErr) {
+                    console.error(`    -> Error parsing match groups:`, parseErr);
                 }
-            }
-            // Lotto America
-            else if (label.includes('Lotto America')) {
-                const match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/);
-                if (match) {
-                    parsedResults.push({
-                        game: 'Lotto America',
-                        date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number),
-                        special: parseInt(match[3]),
-                        jackpot: jackpotValue
-                    });
-                    if (!currentJackpots['lottoamerica']) currentJackpots['lottoamerica'] = jackpotValue;
-                }
-            }
-            // Gopher 5
-            else if (label.includes('Gopher 5')) {
-                const match = label.match(/drawing on (.*?)\. (.*?) Estimated/);
-                if (match) {
-                    parsedResults.push({
-                        game: 'Gopher 5',
-                        date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number),
-                        jackpot: jackpotValue
-                    });
-                    if (!currentJackpots['gopher5']) currentJackpots['gopher5'] = jackpotValue;
-                }
-            }
-            // North 5
-            else if (label.includes('North 5')) {
-                const match = label.match(/drawing on (.*?)\. (.*?) Estimated/);
-                if (match) {
-                    parsedResults.push({
-                        game: 'North 5',
-                        date: match[1],
-                        numbers: match[2].trim().split(' ').map(Number),
-                        jackpot: jackpotValue
-                    });
-                    if (!currentJackpots['north5']) currentJackpots['north5'] = jackpotValue;
-                }
+            } else {
+                console.log(`    -> No regex match for this game.`);
             }
         });
 
-        console.log(`Scraped ${parsedResults.length} draw results.`);
+        console.log(`Total parsed results: ${parsedResults.length}`);
 
-        // Save Jackpots to a separate file for the dashboard header
+        if (parsedResults.length === 0) {
+            console.log('WARNING: No results parsed. Check if website structure changed.');
+        }
+
+        // Save Jackpots
         const JACKPOT_FILE = path.join(__dirname, '../public/data/jackpots.json');
         fs.writeFileSync(JACKPOT_FILE, JSON.stringify(currentJackpots, null, 2));
 
-        // Deduplicate and merge with history
+        // Merge with history
         let history = [];
         if (fs.existsSync(HISTORY_FILE)) {
-            const raw = fs.readFileSync(HISTORY_FILE);
             try {
-                history = JSON.parse(raw);
-            } catch (e) {}
+                history = JSON.parse(fs.readFileSync(HISTORY_FILE));
+            } catch (e) {
+                console.error('Error reading history file, starting fresh.');
+            }
         }
 
-        // Simple deduplication based on game and date
         parsedResults.forEach(res => {
             const exists = history.find(h => h.game === res.game && h.date === res.date);
             if (!exists) {
-                history.unshift(res); // Add new ones to the top
+                history.unshift(res);
+                console.log(`Added new result to history: ${res.game} - ${res.date}`);
             }
         });
 
-        // Limit to reasonable history (e.g., last 100 draws)
         history = history.slice(0, 100);
-
         fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
-        console.log('History updated.');
+        console.log('History file saved.');
 
     } catch (error) {
-        console.error('Scraping error:', error);
-        
-        // Try to take a screenshot if browser is active
+        console.error('CRITICAL SCRAPING ERROR:', error);
         if (browser) {
             try {
                 const pages = await browser.pages();
                 if (pages.length > 0) {
-                    const page = pages[0];
-                    const screenshotPath = path.join(__dirname, '../scrape_error.png');
-                    await page.screenshot({ path: screenshotPath, fullPage: true });
-                    console.log(`Screenshot saved to ${screenshotPath}`);
+                    await pages[0].screenshot({ path: path.join(__dirname, '../scrape_error.png'), fullPage: true });
+                    console.log('Saved scrape_error.png');
                 }
-            } catch (screenshotError) {
-                console.error('Failed to take error screenshot:', screenshotError);
-            }
+            } catch (e) {}
         }
-        
         process.exit(1);
     } finally {
-        if (browser) {
-            await browser.close();
-        }
+        if (browser) await browser.close();
+        console.log('--- MN Lottery Scraper End ---');
     }
 })();

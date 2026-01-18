@@ -23,26 +23,16 @@ permissions:
 jobs:
   update-lotto:
     runs-on: ubuntu-latest
+    # Using the official Puppeteer container ensures all dependencies are present
+    container:
+      image: ghcr.io/puppeteer/puppeteer:latest
+      options: --user root
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install System Dependencies (Chrome)
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
-          install-dependencies: true
-
-      - name: Install Project Dependencies
+      - name: Install dependencies
         run: npm install
-
-      - name: Run Debug Script
-        run: node scripts/debug_puppeteer.js
 
       - name: Run Scraper
         id: scraper
@@ -69,9 +59,10 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config --global user.name 'LotteryBot'
           git config --global user.email 'bot@noreply.github.com'
-          git add public/data/history.json
+          git add public/data/history.json public/data/jackpots.json
           # Only commit if there are changes
           if [[ `git status --porcelain` ]]; then
             git commit -m "Auto-update lottery results"
