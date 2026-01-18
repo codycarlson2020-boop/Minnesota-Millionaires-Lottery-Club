@@ -234,7 +234,16 @@
         const codeGroup = document.getElementById('code-group');
 
         let isLogin = true;
-        const ACCESS_CODE = "MNMILLIONAIRES2026"; // You can change this code
+        // SHA-256 Hash of the access code (Secure)
+        const ACCESS_CODE_HASH = "09ebc1a6b42d84c0e5b379cf01d7414db8304a29329dc7caa39ef5fe5a1fa3b0";
+
+        // Helper: Hash a string using SHA-256
+        async function hashString(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
 
         // Toggle Login/Signup
         toggleAuth.addEventListener('click', (e) => {
@@ -339,7 +348,9 @@
                     return;
                 }
 
-                if (code !== ACCESS_CODE) {
+                // Secure Hash Validation
+                const inputHash = await hashString(code);
+                if (inputHash !== ACCESS_CODE_HASH) {
                     errorMsg.innerText = "Invalid Club Access Code.";
                     errorMsg.style.display = 'block';
                     return;
