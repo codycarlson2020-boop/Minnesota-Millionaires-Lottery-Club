@@ -5,6 +5,7 @@ const puppeteer = require('puppeteer');
     try {
         const browser = await puppeteer.launch({
             headless: true,
+            dumpio: true,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',

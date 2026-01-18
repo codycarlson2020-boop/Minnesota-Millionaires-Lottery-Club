@@ -12,6 +12,7 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
     try {
         browser = await puppeteer.launch({
             headless: true,
+            dumpio: true,
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
