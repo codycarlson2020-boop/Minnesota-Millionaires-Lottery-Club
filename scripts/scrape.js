@@ -14,9 +14,19 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
     });
     const page = await browser.newPage();
     
+    // Set User-Agent to mimic a real browser
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+
     try {
-        await page.goto(TARGET_URL, { waitUntil: 'networkidle2' });
+        await page.goto(TARGET_URL, { waitUntil: 'networkidle2', timeout: 60000 });
         console.log('Page loaded.');
+
+        // Wait for the content to appear (robustness)
+        try {
+            await page.waitForSelector('a[aria-label]', { timeout: 10000 });
+        } catch (e) {
+            console.log('Timeout waiting for specific selector, proceeding anyway...');
+        }
 
         // Extract all "Game Details" links with aria-labels
         const results = await page.evaluate(() => {
