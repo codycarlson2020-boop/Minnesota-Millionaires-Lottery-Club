@@ -54,7 +54,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: debug-screenshot
-          path: scrape_error.png
+          path: |
+            scrape_error.png
+            debug_page_load.png
           if-no-files-found: ignore
           retention-days: 1
 

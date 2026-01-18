@@ -31,7 +31,11 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
         await page.setViewport({ width: 1920, height: 1080 });
 
         await page.goto(TARGET_URL, { waitUntil: 'networkidle2', timeout: 60000 });
-        console.log('Page loaded.');
+        const title = await page.title();
+        console.log(`Page loaded. Title: "${title}"`);
+        
+        // Take a snapshot immediately after load to see what we have
+        await page.screenshot({ path: path.join(__dirname, '../debug_page_load.png'), fullPage: true });
 
         // Wait for the content to appear (robustness)
         try {
