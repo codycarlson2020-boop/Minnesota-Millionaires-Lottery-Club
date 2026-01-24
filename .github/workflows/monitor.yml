@@ -1,0 +1,22 @@
+name: Monitor Data Freshness
+
+on:
+  schedule:
+    # 12:00 PM CST is 18:00 UTC
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run Monitor Script
+        run: node scripts/monitor_staleness.js
