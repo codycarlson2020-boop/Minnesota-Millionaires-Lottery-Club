@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         // FETCH DATA DYNAMICALLY
         const [history, rules, clubNumbers, jackpots] = await Promise.all([
-            fetch('data/history.json').then(res => res.json()),
-            fetch('config/game_rules.json').then(res => res.json()),
-            fetch('config/club_numbers.json').then(res => res.json()),
-            fetch('data/jackpots.json').then(res => res.json())
+            fetch('data/history.json?v=' + Date.now()).then(res => res.json()),
+            fetch('config/game_rules.json?v=' + Date.now()).then(res => res.json()),
+            fetch('config/club_numbers.json?v=' + Date.now()).then(res => res.json()),
+            fetch('data/jackpots.json?v=' + Date.now()).then(res => res.json())
         ]);
 
         // Helper to get next draw date

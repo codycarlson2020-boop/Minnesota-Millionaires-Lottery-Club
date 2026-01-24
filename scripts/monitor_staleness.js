@@ -1,6 +1,9 @@
 const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 const DATA_URL = 'https://mnmillionaireslotteryclub.com/data/history.json';
+const LOCAL_FILE = path.join(__dirname, '../public/data/history.json');
 
 // Only check the games we are actually playing
 const SCHEDULE = {
@@ -47,10 +50,19 @@ function parseDate(dateStr) {
 }
 
 (async () => {
-    console.log(`Checking live data freshness...`);
+    const isLocal = process.argv.includes('--local');
+    console.log(`Checking ${isLocal ? 'LOCAL' : 'LIVE'} data freshness...`);
+    
     let history;
     try {
-        history = await fetchJson(DATA_URL);
+        if (isLocal) {
+            if (!fs.existsSync(LOCAL_FILE)) {
+                throw new Error(`Local file not found: ${LOCAL_FILE}`);
+            }
+            history = JSON.parse(fs.readFileSync(LOCAL_FILE, 'utf8'));
+        } else {
+            history = await fetchJson(DATA_URL);
+        }
     } catch (e) {
         console.error("Failed to fetch data:", e.message);
         process.exit(1);

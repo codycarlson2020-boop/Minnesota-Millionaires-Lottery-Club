@@ -1,5 +1,33 @@
 [
   {
+    "game": "Mega Millions",
+    "date": "Jan 23rd, 2026",
+    "numbers": [
+      30,
+      42,
+      49,
+      53,
+      66
+    ],
+    "jackpot": "$266,000,000",
+    "special": 4,
+    "won_amount": 2,
+    "matches": [
+      {
+        "pick": [
+          2,
+          4,
+          6,
+          8,
+          10
+        ],
+        "matches": 0,
+        "special": true,
+        "won": 2
+      }
+    ]
+  },
+  {
     "game": "North 5",
     "date": "Jan 20th, 2026",
     "numbers": [

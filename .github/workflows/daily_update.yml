@@ -55,6 +55,9 @@ jobs:
         if: steps.scraper.outcome == 'failure'
         run: exit 1
 
+      - name: Verify Data Freshness
+        run: node scripts/monitor_staleness.js --local
+
       - name: Run Checker
         run: node scripts/checker.js
 
