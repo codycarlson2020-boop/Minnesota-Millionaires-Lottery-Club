@@ -1,5 +1,135 @@
 [
   {
+    "game": "North 5",
+    "date": "Jan 20th, 2026",
+    "numbers": [
+      12,
+      20,
+      22,
+      27,
+      31
+    ],
+    "jackpot": "$31,000"
+  },
+  {
+    "game": "Mega Millions",
+    "date": "Jan 20th, 2026",
+    "numbers": [
+      8,
+      47,
+      50,
+      56,
+      70
+    ],
+    "jackpot": "$250,000,000",
+    "special": 12,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Gopher 5",
+    "date": "Jan 21st, 2026",
+    "numbers": [
+      21,
+      34,
+      42,
+      43,
+      44
+    ],
+    "jackpot": "$440,000"
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 21st, 2026",
+    "numbers": [
+      12,
+      14,
+      27,
+      31,
+      34
+    ],
+    "jackpot": "$33,000"
+  },
+  {
+    "game": "Powerball",
+    "date": "Jan 21st, 2026",
+    "numbers": [
+      11,
+      26,
+      27,
+      53,
+      55
+    ],
+    "jackpot": "$209,000,000",
+    "special": 12,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Lotto America",
+    "date": "Jan 21st, 2026",
+    "numbers": [
+      11,
+      30,
+      39,
+      48,
+      51
+    ],
+    "jackpot": "$13,300,000",
+    "special": 4,
+    "won_amount": 2,
+    "matches": [
+      {
+        "pick": [
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "matches": 1,
+        "special": true,
+        "won": 2
+      }
+    ]
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 22nd, 2026",
+    "numbers": [
+      10,
+      17,
+      22,
+      29,
+      30
+    ],
+    "jackpot": "$35,000"
+  },
+  {
+    "game": "Gopher 5",
+    "date": "Jan 23rd, 2026",
+    "numbers": [
+      5,
+      11,
+      22,
+      27,
+      32
+    ],
+    "jackpot": "$475,000"
+  },
+  {
+    "game": "North 5",
+    "date": "Jan 23rd, 2026",
+    "numbers": [
+      6,
+      16,
+      19,
+      24,
+      32
+    ],
+    "jackpot": "$41,000"
+  },
+  {
     "game": "Powerball",
     "date": "Jan 17th, 2026",
     "numbers": [

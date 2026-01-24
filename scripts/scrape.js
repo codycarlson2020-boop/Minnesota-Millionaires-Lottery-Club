@@ -126,7 +126,10 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
         console.log(`Total parsed results: ${parsedResults.length}`);
 
         if (parsedResults.length === 0) {
-            console.log('WARNING: No results parsed. Check if website structure changed.');
+            console.error('ERROR: No results parsed. Saving HTML dump for debugging.');
+            const html = await page.content();
+            fs.writeFileSync(path.join(__dirname, '../page_dump.html'), html);
+            process.exit(1);
         }
 
         // Save Jackpots
@@ -143,7 +146,7 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
             }
         }
 
-        parsedResults.forEach(res => {
+        parsedResults.reverse().forEach(res => {
             const exists = history.find(h => h.game === res.game && h.date === res.date);
             if (!exists) {
                 history.unshift(res);

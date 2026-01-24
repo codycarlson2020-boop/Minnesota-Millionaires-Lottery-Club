@@ -47,6 +47,7 @@ jobs:
           path: |
             scrape_error.png
             debug_page_load.png
+            page_dump.html
           if-no-files-found: ignore
           retention-days: 1
 
