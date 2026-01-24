@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Helper to get next draw date
         const getNextDrawDate = (gameKey) => {
-            const daysMap = { 'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5, 'sat': 6 };
             const drawDays = {
                 'powerball': [1, 3, 6],       // Mon, Wed, Sat
                 'megamillions': [2, 5],       // Tue, Fri
@@ -22,27 +21,31 @@ document.addEventListener('DOMContentLoaded', async () => {
             const targetDays = drawDays[gameKey];
             if (!targetDays) return '';
 
-            const today = new Date();
-            const currentDay = today.getDay(); // 0-6
+            const now = new Date();
+            const currentDay = now.getDay(); // 0-6
+            const currentHour = now.getHours(); // 0-23
 
-            // Find next day in list
+            // Assume draw happens around 10 PM (22:00)
+            // If it is a draw day and BEFORE 10 PM, show "Today"
+            if (targetDays.includes(currentDay) && currentHour < 22) {
+                return `Today, ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+            }
+
+            // Otherwise, find the next future day
             let nextDay = -1;
-            // Check later this week
             for (let d of targetDays) {
                 if (d > currentDay) {
                     nextDay = d;
                     break;
                 }
             }
-            // If not found, circle back to first day next week
             if (nextDay === -1) nextDay = targetDays[0];
 
-            // Calculate date difference
             let diff = nextDay - currentDay;
             if (diff <= 0) diff += 7;
 
-            const nextDate = new Date(today);
-            nextDate.setDate(today.getDate() + diff);
+            const nextDate = new Date(now);
+            nextDate.setDate(now.getDate() + diff);
 
             return nextDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
         };
