@@ -5,12 +5,10 @@ on:
     branches: ["main"]
   schedule:
     # CST is UTC-6 (approx).
-    # 10:15 PM CST -> 04:15 UTC
-    - cron: '15 4 * * *'
-    # 10:30 PM CST -> 04:30 UTC
-    - cron: '30 4 * * *'
-    # 11:00 PM CST -> 05:00 UTC
-    - cron: '0 5 * * *'
+    # 11:30 PM CST -> 05:30 UTC (Safer buffer for late results)
+    - cron: '30 5 * * *'
+    # 12:30 AM CST -> 06:30 UTC (Late night check)
+    - cron: '30 6 * * *'
     # 7:00 AM CST -> 13:00 UTC (Morning Check)
     - cron: '0 13 * * *'
     # 3:00 PM CST -> 21:00 UTC (Afternoon Check)

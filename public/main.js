@@ -95,6 +95,34 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         // ------------------------------------------
 
+        // ------------------------------------------
+        // STALE DATA WARNING
+        // ------------------------------------------
+        if (history && history.length > 0) {
+            const latestDate = parseDate(history[0].date);
+            const staleThreshold = new Date();
+            staleThreshold.setDate(staleThreshold.getDate() - 4); // Warn if older than 4 days
+
+            if (latestDate < staleThreshold) {
+                const warningBanner = document.createElement('div');
+                warningBanner.style.backgroundColor = '#ff4444';
+                warningBanner.style.color = 'white';
+                warningBanner.style.textAlign = 'center';
+                warningBanner.style.padding = '10px';
+                warningBanner.style.fontWeight = 'bold';
+                warningBanner.style.position = 'fixed';
+                warningBanner.style.top = '0';
+                warningBanner.style.left = '0';
+                warningBanner.style.width = '100%';
+                warningBanner.style.zIndex = '1000';
+                warningBanner.innerHTML = `⚠️ DATA MAY BE OUT OF DATE. Last update: ${history[0].date}`;
+                
+                document.body.prepend(warningBanner);
+                document.body.style.marginTop = '40px'; // Push content down
+            }
+        }
+        // ------------------------------------------
+
         // Sort priority: Powerball (1), Mega Millions (2), Lotto America (3)
         const gamePriority = {
             'powerball': 1,
