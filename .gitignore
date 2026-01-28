@@ -1,3 +1,9 @@
 node_modules/
 .DS_Store
 *.log
+# Debug artifacts
+*.png
+*.html
+page_dump.html
+scrape_error.png
+debug_page_load.png

@@ -11,3 +11,14 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - **CI/CD Safety:** Added a "Verify Data Freshness" step to the `.github/workflows/daily_update.yml` pipeline. The workflow will now fail explicitly if the scraper runs but fails to capture the latest drawings, triggering a GitHub notification.
+
+## [2026-01-28]
+
+### Fixed
+- **Silent Failures:** Implemented a "Sanity Check" in `scrape.js`. The scraper now explicitly fails (Exit Code 1) if the latest result found on the web page is older than 5 days.
+- **Bot Detection:** Migrated to `puppeteer-extra` with `puppeteer-extra-plugin-stealth` and added human-like browser headers to bypass "Ghost Page" caching and bot blocking.
+- **Schedule:** Adjusted GitHub Actions schedule to run later (11:30 PM & 12:30 AM CST) to ensure external results are published before scraping.
+
+### Added
+- **UI Warning:** Added a visual "Stale Data" warning banner to the website dashboard that appears if data is older than 4 days.
+
