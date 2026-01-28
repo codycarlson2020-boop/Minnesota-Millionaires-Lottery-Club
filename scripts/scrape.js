@@ -1,18 +1,24 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const fs = require('fs');
 const path = require('path');
 
-const TARGET_URL = 'https://www.mnlottery.com/winning-numbers';
+puppeteer.use(StealthPlugin());
+
+const BASE_URL = 'https://www.mnlottery.com/winning-numbers';
+// Add cache buster to URL to avoid server-side caching
+const TARGET_URL = `${BASE_URL}?t=${Date.now()}`;
+
 const HISTORY_FILE = path.join(__dirname, '../public/data/history.json');
 const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.json');
 
 (async () => {
-    console.log('--- MN Lottery Scraper Start ---');
+    console.log('--- MN Lottery Scraper Start (Stealth Mode) ---');
     let browser;
     try {
         console.log('Launching browser...');
         browser = await puppeteer.launch({
-            headless: true,
+            headless: "new", // Use new headless mode
             dumpio: true,
             args: [
                 '--no-sandbox',
@@ -20,15 +26,34 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
                 '--disable-dev-shm-usage',
                 '--disable-gpu',
                 '--no-zygote',
-                '--ignore-certificate-errors'
+                '--ignore-certificate-errors',
+                '--window-size=1920,1080'
             ]
         });
         
         const page = await browser.newPage();
+        
+        // Mimic a real user browser
         await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
         await page.setViewport({ width: 1920, height: 1080 });
+        
+        await page.setExtraHTTPHeaders({
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1'
+        });
 
         console.log(`Navigating to ${TARGET_URL}...`);
+        
+        // Random small delay before navigation
+        await new Promise(r => setTimeout(r, Math.random() * 2000));
+        
         await page.goto(TARGET_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
         
         const title = await page.title();
