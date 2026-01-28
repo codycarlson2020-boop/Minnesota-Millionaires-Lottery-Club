@@ -132,6 +132,24 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
             process.exit(1);
         }
 
+        // SANITY CHECK: Ensure we aren't seeing a "Ghost Page" (cached old version)
+        // Find the absolute latest date we scraped
+        const latestScrapedDate = parsedResults.reduce((latest, current) => {
+            const d = new Date(current.date.replace(/(st|nd|rd|th)/, ''));
+            return d > latest ? d : latest;
+        }, new Date(0));
+
+        const now = new Date();
+        const daysOld = (now - latestScrapedDate) / (1000 * 60 * 60 * 24);
+        
+        console.log(`Latest result on page is from: ${latestScrapedDate.toDateString()} (${daysOld.toFixed(1)} days old)`);
+
+        if (daysOld > 5) {
+            console.error('CRITICAL ERROR: The webpage is serving stale data! Latest draw found is > 5 days old.');
+            console.error('This usually means the scraper is being served a cached page or the site layout changed unexpectedly.');
+            process.exit(1);
+        }
+
         // Save Jackpots
         const JACKPOT_FILE = path.join(__dirname, '../public/data/jackpots.json');
         fs.writeFileSync(JACKPOT_FILE, JSON.stringify(currentJackpots, null, 2));
