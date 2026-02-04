@@ -1,6 +1,119 @@
 [
   {
     "game": "Mega Millions",
+    "date": "Feb 3rd, 2026",
+    "numbers": [
+      5,
+      11,
+      22,
+      25,
+      69
+    ],
+    "jackpot": "$323,000,000",
+    "special": 21
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 3rd, 2026",
+    "numbers": [
+      5,
+      12,
+      17,
+      24,
+      28
+    ],
+    "jackpot": "$33,000"
+  },
+  {
+    "game": "Lotto America",
+    "date": "Feb 2nd, 2026",
+    "numbers": [
+      10,
+      30,
+      40,
+      47,
+      50
+    ],
+    "jackpot": "$14,450,000",
+    "special": 1
+  },
+  {
+    "game": "Powerball",
+    "date": "Feb 2nd, 2026",
+    "numbers": [
+      3,
+      8,
+      31,
+      60,
+      65
+    ],
+    "jackpot": "$65,000,000",
+    "special": 4
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 2nd, 2026",
+    "numbers": [
+      7,
+      18,
+      19,
+      31,
+      33
+    ],
+    "jackpot": "$31,000"
+  },
+  {
+    "game": "Gopher 5",
+    "date": "Feb 2nd, 2026",
+    "numbers": [
+      25,
+      27,
+      34,
+      39,
+      44
+    ],
+    "jackpot": "$640,000"
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 1st, 2026",
+    "numbers": [
+      1,
+      8,
+      11,
+      12,
+      34
+    ],
+    "jackpot": "$29,000"
+  },
+  {
+    "game": "Lotto America",
+    "date": "Jan 31st, 2026",
+    "numbers": [
+      7,
+      21,
+      47,
+      48,
+      49
+    ],
+    "jackpot": "$14,300,000",
+    "special": 3
+  },
+  {
+    "game": "Powerball",
+    "date": "Jan 31st, 2026",
+    "numbers": [
+      2,
+      8,
+      14,
+      40,
+      63
+    ],
+    "jackpot": "$57,000,000",
+    "special": 23
+  },
+  {
+    "game": "Mega Millions",
     "date": "Jan 27th, 2026",
     "numbers": [
       4,
