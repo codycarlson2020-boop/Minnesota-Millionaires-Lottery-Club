@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - **Data Sync:** Manually ran the new local scraper to restore data currency (updated to Feb 3rd, 2026).
+- **Winnings Display:** Added `checker.js` execution to the automation pipeline. This ensures that prize amounts and matches are calculated and displayed immediately after scraping.
 
 ## [2026-01-28]
 
