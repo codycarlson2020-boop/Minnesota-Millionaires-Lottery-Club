@@ -12,6 +12,16 @@ All notable changes to this project will be documented in this file.
 ### Added
 - **CI/CD Safety:** Added a "Verify Data Freshness" step to the `.github/workflows/daily_update.yml` pipeline. The workflow will now fail explicitly if the scraper runs but fails to capture the latest drawings, triggering a GitHub notification.
 
+## [2026-02-03]
+
+### Added
+- **Local Automation:** Created `update_lottery.bat`, a robust batch script that scrapes, commits, and pushes updates automatically.
+- **Scheduled Task:** Configured "LotteryClubUpdater" on the local machine to execute the update script daily at 11:00 PM CST, ensuring reliable updates even if cloud runners are blocked.
+- **Scripts:** Added `npm run scrape` command to `package.json`.
+
+### Fixed
+- **Data Sync:** Manually ran the new local scraper to restore data currency (updated to Feb 3rd, 2026).
+
 ## [2026-01-28]
 
 ### Fixed
