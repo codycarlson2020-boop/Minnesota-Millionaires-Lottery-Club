@@ -1,5 +1,44 @@
 [
   {
+    "game": "Mega Millions",
+    "date": "Feb 6th, 2026",
+    "numbers": [
+      13,
+      21,
+      25,
+      52,
+      62
+    ],
+    "jackpot": "$346,000,000",
+    "special": 19,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 6th, 2026",
+    "numbers": [
+      13,
+      22,
+      24,
+      30,
+      31
+    ],
+    "jackpot": "$49,000"
+  },
+  {
+    "game": "Gopher 5",
+    "date": "Feb 6th, 2026",
+    "numbers": [
+      4,
+      10,
+      13,
+      19,
+      34
+    ],
+    "jackpot": "$755,000"
+  },
+  {
     "game": "North 5",
     "date": "Feb 5th, 2026",
     "numbers": [
