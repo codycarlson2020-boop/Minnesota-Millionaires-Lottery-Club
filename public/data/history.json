@@ -1,5 +1,60 @@
 [
   {
+    "game": "Lotto America",
+    "date": "Feb 7th, 2026",
+    "numbers": [
+      7,
+      22,
+      26,
+      38,
+      41
+    ],
+    "jackpot": "$14,980,000",
+    "special": 1,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Powerball",
+    "date": "Feb 7th, 2026",
+    "numbers": [
+      25,
+      36,
+      42,
+      51,
+      58
+    ],
+    "jackpot": "$102,000,000",
+    "special": 6,
+    "won_amount": 4,
+    "matches": [
+      {
+        "pick": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "matches": 0,
+        "special": true,
+        "won": 4
+      }
+    ]
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 7th, 2026",
+    "numbers": [
+      1,
+      6,
+      9,
+      10,
+      12
+    ],
+    "jackpot": "$57,000"
+  },
+  {
     "game": "Mega Millions",
     "date": "Feb 6th, 2026",
     "numbers": [
