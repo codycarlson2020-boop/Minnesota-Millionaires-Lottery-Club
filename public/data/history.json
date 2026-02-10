@@ -1,5 +1,59 @@
 [
   {
+    "game": "Lotto America",
+    "date": "Feb 9th, 2026",
+    "numbers": [
+      2,
+      7,
+      26,
+      28,
+      34
+    ],
+    "jackpot": "$15,030,000",
+    "special": 1,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "Powerball",
+    "date": "Feb 9th, 2026",
+    "numbers": [
+      6,
+      19,
+      22,
+      28,
+      48
+    ],
+    "jackpot": "$113,000,000",
+    "special": 24,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 9th, 2026",
+    "numbers": [
+      4,
+      14,
+      21,
+      25,
+      30
+    ],
+    "jackpot": "$77,000"
+  },
+  {
+    "game": "Gopher 5",
+    "date": "Feb 9th, 2026",
+    "numbers": [
+      13,
+      22,
+      28,
+      45,
+      46
+    ],
+    "jackpot": "$800,000"
+  },
+  {
     "game": "North 5",
     "date": "Feb 8th, 2026",
     "numbers": [
