@@ -1,5 +1,32 @@
 [
   {
+    "game": "Mega Millions",
+    "date": "Feb 10th, 2026",
+    "numbers": [
+      5,
+      25,
+      30,
+      36,
+      68
+    ],
+    "jackpot": "$366,000,000",
+    "special": 6,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
+    "game": "North 5",
+    "date": "Feb 10th, 2026",
+    "numbers": [
+      4,
+      14,
+      15,
+      29,
+      34
+    ],
+    "jackpot": "$88,000"
+  },
+  {
     "game": "Lotto America",
     "date": "Feb 9th, 2026",
     "numbers": [
