@@ -47,20 +47,6 @@ const PAYOUTS = {
         if (matches === 1 && special) return 2;
         if (special) return 2;
         return 0;
-    },
-    'Gopher 5': (matches) => {
-        if (matches === 5) return 100000;
-        if (matches === 4) return 500;
-        if (matches === 3) return 15;
-        if (matches === 2) return 1;
-        return 0;
-    },
-    'North 5': (matches) => {
-        if (matches === 5) return 25000;
-        if (matches === 4) return 50;
-        if (matches === 3) return 5;
-        if (matches === 2) return 1;
-        return 0;
     }
 };
 

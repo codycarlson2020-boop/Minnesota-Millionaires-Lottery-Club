@@ -110,12 +110,6 @@ const CLUB_NUMBERS_FILE = path.join(__dirname, '../public/config/club_numbers.js
             } else if (label.includes('Lotto America')) {
                 gameName = 'Lotto America';
                 match = label.match(/drawing on (.*?)\. (.*?) Special number is (\d+)/i);
-            } else if (label.includes('Gopher 5')) {
-                gameName = 'Gopher 5';
-                match = label.match(/drawing on (.*?)\. (.*?) Estimated/i);
-            } else if (label.includes('North 5')) {
-                gameName = 'North 5';
-                match = label.match(/drawing on (.*?)\. (.*?) Estimated/i);
             }
 
             if (gameName && match) {

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // Fetch real data from history.json
-        const response = await fetch('data/history.json');
+        // Fetch real data from history.json with cache buster
+        const response = await fetch('data/history.json?v=' + Date.now());
         if (!response.ok) throw new Error("Failed to fetch history");
         const history = await response.json();
 
