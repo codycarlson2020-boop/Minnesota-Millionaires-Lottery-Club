@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-02-11]
+
+### Changed
+- **Game Purge:** Formally removed Gopher 5 and North 5 from the club's active roster. 
+- **Data Cleanup:** Deep-purged all historical entries for Gopher 5 and North 5 from `history.json` and `archive.json` to streamline the archive view.
+- **Scraper Update:** Modified `scrape.js` to stop tracking Gopher 5 and North 5.
+- **Checker Update:** Removed payout logic for Gopher 5 and North 5 from `checker.js`.
+
+### Fixed
+- **Archive Sync:** Added cache-busting to the history page (`history.js`) to ensure the purged data is immediately reflected on the live site.
+
 ## [2026-01-24]
 
 ### Fixed
