@@ -1,5 +1,20 @@
 [
   {
+    "game": "Mega Millions",
+    "date": "Feb 13th, 2026",
+    "numbers": [
+      34,
+      40,
+      49,
+      59,
+      68
+    ],
+    "jackpot": "$385,000,000",
+    "special": 1,
+    "won_amount": 0,
+    "matches": []
+  },
+  {
     "game": "Lotto America",
     "date": "Feb 11th, 2026",
     "numbers": [
